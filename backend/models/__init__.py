@@ -7,8 +7,11 @@ from .analysis import Analysis, AnalysisSource
 from .readiness import ReadinessLog, ReadinessCheck
 from .prompt import PromptRegistry
 from .audit import AuditTrail, DocumentAccessLog
+from .user import User, Role, Permission, UserRole, RolePermission, Session, WorkspaceMember
+from .integration import IntegrationConnection, SyncJob, ExternalSourceMapping, DeletedSource
 
 __all__ = [
+    # Core models
     "Workspace",
     "Source",
     "Analysis",
@@ -18,4 +21,17 @@ __all__ = [
     "PromptRegistry",
     "AuditTrail",
     "DocumentAccessLog",
+    # P1: Authentication & RBAC
+    "User",
+    "Role",
+    "Permission",
+    "UserRole",
+    "RolePermission",
+    "Session",
+    "WorkspaceMember",
+    # P1: Integrations
+    "IntegrationConnection",
+    "SyncJob",
+    "ExternalSourceMapping",
+    "DeletedSource",
 ]

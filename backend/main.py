@@ -17,6 +17,8 @@ from .routes import (
     sources_router,
     analyses_router,
     prompts_router,
+    auth_router,
+    integrations_router,
 )
 
 
@@ -108,15 +110,19 @@ async def root():
         "docs": "/api/docs",
         "health": "/health",
         "endpoints": {
+            "authentication": "/api/auth",
             "workspaces": "/api/workspaces",
             "sources": "/api/sources",
             "analyses": "/api/analyses",
             "prompts": "/api/prompts",
+            "integrations": "/api/integrations",
         }
     }
 
 
 # Register routers
+app.include_router(auth_router)  # P1: Authentication
+app.include_router(integrations_router)  # P1: Integrations
 app.include_router(workspaces_router)
 app.include_router(sources_router)
 app.include_router(analyses_router)
