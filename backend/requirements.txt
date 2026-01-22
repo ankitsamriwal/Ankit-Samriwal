@@ -1,0 +1,49 @@
+# Leadership Intelligence Wrapper - Python Dependencies
+
+# FastAPI & Web Server
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.6
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Pydantic (Data validation)
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+# unstructured[local-inference]==0.11.6  # Uncomment for production
+
+# HTTP & API clients
+httpx==0.26.0
+requests==2.31.0
+
+# Cloud Storage Integration (Optional - uncomment as needed)
+# google-api-python-client==2.111.0
+# google-auth-httplib2==0.2.0
+# google-auth-oauthlib==1.2.0
+# Office365-REST-Python-Client==2.5.3
+
+# AI/LLM Integration
+anthropic==0.8.1
+# openai==1.6.1  # Uncomment if using OpenAI
+
+# Utilities
+python-dotenv==1.0.0
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Testing (Optional)
+# pytest==7.4.3
+# pytest-asyncio==0.21.1
+# httpx==0.26.0  # For testing async endpoints
+
+# Development
+black==23.12.1
+flake8==7.0.0
+mypy==1.8.0
