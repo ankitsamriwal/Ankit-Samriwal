@@ -1,0 +1,3 @@
+@echo off
+echo Opening Leadership Intelligence Wrapper...
+start http://localhost:8000/api/docs
