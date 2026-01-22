@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leadership Intelligence Wrapper - Access Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .status {
+            background: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+
+        .status.success {
+            background: #f0fdf4;
+            border-color: #22c55e;
+        }
+
+        .status.error {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .links {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .link-button {
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .link-button small {
+            display: block;
+            margin-top: 5px;
+            opacity: 0.9;
+            font-weight: normal;
+            font-size: 0.85em;
+        }
+
+        .info-box {
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box h3 {
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .info-box li:last-child {
+            border-bottom: none;
+        }
+
+        code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .test-button {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: background 0.2s;
+        }
+
+        .test-button:hover {
+            background: #059669;
+        }
+
+        #testResult {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Leadership Intelligence Wrapper</h1>
+        <p class="subtitle">Access Your API</p>
+
+        <div class="status success" id="statusBox">
+            <strong>✅ Server Status:</strong> <span id="serverStatus">Checking...</span>
+        </div>
+
+        <div class="links">
+            <a href="http://localhost:8000/api/docs" class="link-button" target="_blank">
+                📚 Open Interactive API Documentation
+                <small>Swagger UI - Try all endpoints in your browser</small>
+            </a>
+
+            <a href="http://localhost:8000/api/redoc" class="link-button" target="_blank">
+                📖 Open API Reference
+                <small>ReDoc - Clean, professional documentation</small>
+            </a>
+
+            <a href="http://localhost:8000/" class="link-button" target="_blank">
+                🏠 API Root
+                <small>View all available endpoints</small>
+            </a>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 Quick Start</h3>
+            <ol style="padding-left: 20px;">
+                <li style="border-bottom: none; padding: 10px 0;">Click "Open Interactive API Documentation" above</li>
+                <li style="border-bottom: none; padding: 10px 0;">Go to <strong>Authentication</strong> section → <code>POST /api/auth/register</code></li>
+                <li style="border-bottom: none; padding: 10px 0;">Register a user account</li>
+                <li style="border-bottom: none; padding: 10px 0;">Login to get your JWT token</li>
+                <li style="border-bottom: none; padding: 10px 0;">Click <strong>Authorize</strong> 🔓 button and enter: <code>Bearer &lt;your-token&gt;</code></li>
+                <li style="border-bottom: none; padding: 10px 0;">Start using all endpoints!</li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <h3>🔗 Alternative Access URLs</h3>
+            <ul>
+                <li><strong>localhost:</strong> <code>http://localhost:8000/api/docs</code></li>
+                <li><strong>127.0.0.1:</strong> <code>http://127.0.0.1:8000/api/docs</code></li>
+                <li><strong>WSL IP:</strong> <code>http://21.0.0.12:8000/api/docs</code></li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🧪 Test Connection</h3>
+            <button class="test-button" onclick="testConnection()">Test API Connection</button>
+            <button class="test-button" onclick="testEndpoints()">Test All Endpoints</button>
+            <div id="testResult"></div>
+        </div>
+
+        <div class="info-box">
+            <h3>📊 Available Features</h3>
+            <ul>
+                <li><strong>P0 Features:</strong> Multi-Source Ingest, RigorScore™, Readiness Engine, NotebookLM Export</li>
+                <li><strong>P1 Features:</strong> RBAC, Authentication, Zero-Persistence Mode, Integrations</li>
+                <li><strong>Total Endpoints:</strong> 33 API endpoints</li>
+                <li><strong>Database:</strong> PostgreSQL with 20 tables</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Test server connection
+        async function testConnection() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'status';
+            resultDiv.innerHTML = '⏳ Testing connection...';
+
+            try {
+                const response = await fetch('http://localhost:8000/health');
+                const data = await response.json();
+
+                if (data.status === 'healthy') {
+                    resultDiv.className = 'status success';
+                    resultDiv.innerHTML = `
+                        <strong>✅ Connection Successful!</strong><br>
+                        Service: ${data.service}<br>
+                        Version: ${data.version}
+                    `;
+                    updateServerStatus('Running - Healthy', true);
+                } else {
+                    throw new Error('Unhealthy status');
+                }
+            } catch (error) {
+                resultDiv.className = 'status error';
+                resultDiv.innerHTML = `
+                    <strong>❌ Connection Failed</strong><br>
+                    Error: ${error.message}<br>
+                    <br>
+                    <strong>Troubleshooting:</strong><br>
+                    1. Make sure the server is running<br>
+                    2. Try the alternative URLs above<br>
+                    3. Check Windows Firewall settings
+                `;
+                updateServerStatus('Not Accessible', false);
+            }
+        }
+
+        // Test all endpoints
+        async function testEndpoints() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'status';
+            resultDiv.innerHTML = '⏳ Testing all endpoints...';
+
+            const endpoints = [
+                { name: 'Health', url: 'http://localhost:8000/health' },
+                { name: 'Root', url: 'http://localhost:8000/' },
+                { name: 'API Docs', url: 'http://localhost:8000/api/docs' },
+            ];
+
+            let results = '<strong>Test Results:</strong><br><br>';
+            let allPassed = true;
+
+            for (const endpoint of endpoints) {
+                try {
+                    const response = await fetch(endpoint.url);
+                    if (response.ok) {
+                        results += `✅ ${endpoint.name}: OK<br>`;
+                    } else {
+                        results += `❌ ${endpoint.name}: ${response.status}<br>`;
+                        allPassed = false;
+                    }
+                } catch (error) {
+                    results += `❌ ${endpoint.name}: Failed<br>`;
+                    allPassed = false;
+                }
+            }
+
+            resultDiv.className = allPassed ? 'status success' : 'status error';
+            resultDiv.innerHTML = results;
+        }
+
+        function updateServerStatus(status, isHealthy) {
+            const statusBox = document.getElementById('statusBox');
+            const statusText = document.getElementById('serverStatus');
+
+            statusText.textContent = status;
+            statusBox.className = isHealthy ? 'status success' : 'status error';
+        }
+
+        // Auto-test on page load
+        window.addEventListener('load', function() {
+            setTimeout(testConnection, 1000);
+        });
+    </script>
+</body>
+</html>
