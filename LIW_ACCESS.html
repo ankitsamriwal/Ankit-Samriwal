@@ -165,17 +165,17 @@
         </div>
 
         <div class="links">
-            <a href="http://localhost:8000/api/docs" class="link-button" target="_blank">
+            <a href="http://21.0.0.110:8000/api/docs" class="link-button" target="_blank">
                 📚 Open Interactive API Documentation
                 <small>Swagger UI - Try all endpoints in your browser</small>
             </a>
 
-            <a href="http://localhost:8000/api/redoc" class="link-button" target="_blank">
+            <a href="http://21.0.0.110:8000/api/redoc" class="link-button" target="_blank">
                 📖 Open API Reference
                 <small>ReDoc - Clean, professional documentation</small>
             </a>
 
-            <a href="http://localhost:8000/" class="link-button" target="_blank">
+            <a href="http://21.0.0.110:8000/" class="link-button" target="_blank">
                 🏠 API Root
                 <small>View all available endpoints</small>
             </a>
@@ -196,9 +196,9 @@
         <div class="info-box">
             <h3>🔗 Alternative Access URLs</h3>
             <ul>
-                <li><strong>localhost:</strong> <code>http://localhost:8000/api/docs</code></li>
+                <li><strong>WSL IP (Recommended):</strong> <code>http://21.0.0.110:8000/api/docs</code></li>
+                <li><strong>localhost:</strong> <code>http://21.0.0.110:8000/api/docs</code></li>
                 <li><strong>127.0.0.1:</strong> <code>http://127.0.0.1:8000/api/docs</code></li>
-                <li><strong>WSL IP:</strong> <code>http://21.0.0.12:8000/api/docs</code></li>
             </ul>
         </div>
 
@@ -229,7 +229,7 @@
             resultDiv.innerHTML = '⏳ Testing connection...';
 
             try {
-                const response = await fetch('http://localhost:8000/health');
+                const response = await fetch('http://21.0.0.110:8000/health');
                 const data = await response.json();
 
                 if (data.status === 'healthy') {
@@ -266,9 +266,9 @@
             resultDiv.innerHTML = '⏳ Testing all endpoints...';
 
             const endpoints = [
-                { name: 'Health', url: 'http://localhost:8000/health' },
-                { name: 'Root', url: 'http://localhost:8000/' },
-                { name: 'API Docs', url: 'http://localhost:8000/api/docs' },
+                { name: 'Health', url: 'http://21.0.0.110:8000/health' },
+                { name: 'Root', url: 'http://21.0.0.110:8000/' },
+                { name: 'API Docs', url: 'http://21.0.0.110:8000/api/docs' },
             ];
 
             let results = '<strong>Test Results:</strong><br><br>';

@@ -1,0 +1,80 @@
+═══════════════════════════════════════════════════════════════
+  LEADERSHIP INTELLIGENCE WRAPPER - HOW TO ACCESS
+═══════════════════════════════════════════════════════════════
+
+✅ SERVER IS RUNNING on port 8000
+
+═══════════════════════════════════════════════════════════════
+  METHOD 1: Direct Browser Access (EASIEST)
+═══════════════════════════════════════════════════════════════
+
+Open your Windows web browser and try these URLs IN ORDER:
+
+1. http://localhost:8000/api/docs  (Try this FIRST)
+2. http://127.0.0.1:8000/api/docs  (If localhost doesn't work)
+3. http://21.0.0.110:8000/api/docs  (WSL IP - if others fail)
+
+═══════════════════════════════════════════════════════════════
+  METHOD 2: Double-Click These Files
+═══════════════════════════════════════════════════════════════
+
+From your Ankit-Samriwal folder, double-click:
+- Open_LIW_API.url  (Windows shortcut)
+- LIW_ACCESS.html   (Opens instruction page)
+
+═══════════════════════════════════════════════════════════════
+  METHOD 3: PowerShell (If WSL networking issues)
+═══════════════════════════════════════════════════════════════
+
+1. Open PowerShell
+2. Run: Start-Process "http://localhost:8000/api/docs"
+
+═══════════════════════════════════════════════════════════════
+  QUICK START GUIDE
+═══════════════════════════════════════════════════════════════
+
+Once the API docs open:
+
+1. Find "Authentication" section
+2. Click POST /api/auth/register
+3. Click "Try it out"
+4. Enter your details:
+   {
+     "email": "your@email.com",
+     "username": "yourname",
+     "password": "YourSecurePassword123!"
+   }
+5. Click "Execute"
+6. Then use POST /api/auth/login to get your token
+7. Click the "Authorize" 🔓 button at top right
+8. Enter: Bearer YOUR_TOKEN_HERE
+9. Now you can use all 33 endpoints!
+
+═══════════════════════════════════════════════════════════════
+  TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+If NONE of the URLs work from Windows:
+
+From WSL terminal run:
+  curl http://localhost:8000/health
+
+If this works but Windows can't access it:
+- Your WSL networking might need configuration
+- Try restarting WSL: wsl --shutdown (from PowerShell)
+- Then restart this server
+
+═══════════════════════════════════════════════════════════════
+  WHAT IF I SEE "This site can't be reached"?
+═══════════════════════════════════════════════════════════════
+
+From Windows PowerShell, try:
+  curl http://localhost:8000/health
+
+If this works: Use localhost URLs
+If this fails: WSL networking needs setup
+
+Contact support with your WSL version:
+  wsl --version
+
+═══════════════════════════════════════════════════════════════
