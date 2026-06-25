@@ -1,0 +1,1 @@
+Build note: this is a Vite React app. The new Chronicles code uses existing Tailwind classes and static data imports only.
