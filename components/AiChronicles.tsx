@@ -2,10 +2,30 @@ import React, { useMemo, useState } from 'react';
 import { Article, articles } from '../data/chronicles';
 
 const heroImages = [
-  'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1200',
-  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200',
-  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1200',
-  'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=1200'
+  'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=85&w=1400'
 ];
 
 const AiChronicles: React.FC = () => {
@@ -46,7 +66,7 @@ const AiChronicles: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filtered.map((article, index) => (
           <button key={`${article.week}-${article.title}`} onClick={() => setSelected(article)} className="group text-left glass rounded-[2rem] overflow-hidden border border-white/10 hover:border-blue-400/40 hover:bg-white/[0.05] transition-all duration-500">
-            <div className="h-52 overflow-hidden bg-neutral-900"><img src={heroImages[index % heroImages.length]} alt="" className="w-full h-full object-cover opacity-60 grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" /></div>
+            <div className="h-52 overflow-hidden bg-neutral-900"><img src={heroImages[index % heroImages.length]} alt="" loading="lazy" className="w-full h-full object-cover opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" /></div>
             <div className="p-6 md:p-8">
               <div className="mono text-[11px] uppercase tracking-[0.22em] text-blue-300 mb-4">{article.week} · {article.date} · {article.category}</div>
               <h3 className="text-2xl font-extrabold tracking-tight leading-tight mb-4 group-hover:text-blue-100 transition-colors">{article.title}</h3>
