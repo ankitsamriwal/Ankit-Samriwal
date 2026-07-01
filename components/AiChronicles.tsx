@@ -1,5 +1,8 @@
 import React, { useMemo, useState } from 'react';
-import { Article, articles } from '../data/chronicles';
+import { Article, articles as baseArticles } from '../data/chronicles';
+import { articles21To25 } from '../data/chronicles-21-25';
+
+const articles = [...baseArticles, ...articles21To25];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
@@ -25,7 +28,12 @@ const heroImages = [
   'https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=85&w=1400',
   'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=85&w=1400',
   'https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=85&w=1400',
-  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=85&w=1400'
+  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1552664688-cf412ec27db2?auto=format&fit=crop&q=85&w=1400',
+  'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=85&w=1400'
 ];
 
 const AiChronicles: React.FC = () => {
