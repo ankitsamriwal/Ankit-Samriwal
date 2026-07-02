@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { Article, articles as baseArticles } from '../data/chronicles';
 import { articles21To25 } from '../data/chronicles-21-25';
+import { articles26To30 } from '../data/chronicles-26-30';
 
-const articles = [...baseArticles, ...articles21To25];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
