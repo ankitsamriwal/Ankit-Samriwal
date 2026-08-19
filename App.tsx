@@ -75,8 +75,9 @@ const App: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {GITHUB_REPOS.map((repo) => <RepoCard key={repo.id} repo={repo} />)}
           </div>
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="https://github.com/ankitsamriwal" className="text-sm font-medium text-neutral-500 hover:text-white transition-colors underline underline-offset-8" target="_blank" rel="noopener noreferrer">View all projects on GitHub →</a>
+            <a href="/food-atlas" className="text-sm font-medium text-neutral-500 hover:text-white transition-colors underline underline-offset-8">Try the UAE Food Atlas app →</a>
           </div>
         </Section>
 
