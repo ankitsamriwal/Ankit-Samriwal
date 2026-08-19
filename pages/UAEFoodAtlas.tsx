@@ -94,6 +94,18 @@ const EMIRATES = [
 const STORAGE_KEY = 'uae_eating_joints_v3';
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800';
 
+// Approximate city-center coordinates, used as a per-emirate fallback when a
+// contributor doesn't provide precise coordinates.
+const EMIRATE_COORDINATES: Record<string, { lat: number; lng: number }> = {
+  'Abu Dhabi': { lat: 24.4539, lng: 54.3773 },
+  'Dubai': { lat: 25.2048, lng: 55.2708 },
+  'Sharjah': { lat: 25.3463, lng: 55.4209 },
+  'Ajman': { lat: 25.4052, lng: 55.5136 },
+  'Umm Al Quwain': { lat: 25.5647, lng: 55.5534 },
+  'Ras Al Khaimah': { lat: 25.7895, lng: 55.9432 },
+  'Fujairah': { lat: 25.1288, lng: 56.3265 }
+};
+
 interface JointFormState {
   name: string;
   emirate: string;
@@ -162,13 +174,15 @@ const UAEFoodAtlas: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const fallbackCoords = EMIRATE_COORDINATES[formData.emirate] || EMIRATE_COORDINATES['Dubai'];
+
     const newJoint: EatingJoint = {
       id: Date.now().toString(),
       name: formData.name.trim(),
       emirate: formData.emirate,
       address: formData.address.trim(),
-      lat: parseFloat(formData.lat) || 25.2048,
-      lng: parseFloat(formData.lng) || 55.2708,
+      lat: parseFloat(formData.lat) || fallbackCoords.lat,
+      lng: parseFloat(formData.lng) || fallbackCoords.lng,
       specialty: formData.specialty.trim(),
       image: formData.image.trim() || DEFAULT_IMAGE,
       rating: Number(formData.rating) || 5,
