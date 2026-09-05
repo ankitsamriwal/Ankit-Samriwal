@@ -63,16 +63,9 @@ const AiChronicles: React.FC = () => {
     <section id="chronicles" className="py-12 md:py-20">
       <div className="mb-10">
         <div className="mono text-xs uppercase tracking-[0.3em] text-blue-300 mb-5">AI Chronicles</div>
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-end">
-          <div>
-            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">The evolution of AI, agents and the human edge.</h2>
-            <p className="text-lg text-neutral-400 leading-8 max-w-2xl">A weekly retrospective on how AI moved from chatbots to agentic systems, written from the lens of enterprise delivery and real work.</p>
-          </div>
-          <div className="glass rounded-[2rem] p-6 border border-white/10 grid grid-cols-3 gap-4 text-center">
-            <div><div className="text-3xl font-extrabold">104</div><div className="mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">Target weeks</div></div>
-            <div><div className="text-3xl font-extrabold">{articles.length}</div><div className="mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">Live now</div></div>
-            <div><div className="text-3xl font-extrabold">2024</div><div className="mono text-[10px] uppercase tracking-[0.18em] text-neutral-500">Start</div></div>
-          </div>
+        <div>
+          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.05] mb-6">The evolution of AI, agents and the human edge.</h2>
+          <p className="text-lg text-neutral-400 leading-8 max-w-2xl">A weekly retrospective on how AI moved from chatbots to agentic systems, written from the lens of enterprise delivery and real work.</p>
         </div>
       </div>
 
