@@ -11,7 +11,7 @@ const PrototypesSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {PROTOTYPES.map((proto) => (
           <div key={proto.name} className="glass p-8 rounded-[2rem] flex flex-col transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05]">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
               <span className="mono text-[10px] uppercase tracking-[0.25em] text-emerald-300/80">{proto.status}</span>
               <span className="mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{proto.tagline}</span>
             </div>

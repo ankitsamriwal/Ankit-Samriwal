@@ -33,7 +33,14 @@ const App: React.FC = () => {
             <a href="#socials" className="hover:text-white transition-colors">Socials</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
-          <a href="#chronicles" className="md:hidden text-sm text-neutral-300 hover:text-white transition-colors">Chronicles</a>
+          <div className="md:hidden flex gap-4 overflow-x-auto no-scrollbar text-xs font-medium text-neutral-400 max-w-[70vw]">
+            <a href="#about" className="hover:text-white transition-colors whitespace-nowrap">About</a>
+            <a href="#writing" className="hover:text-white transition-colors whitespace-nowrap">Writing</a>
+            <a href="#chronicles" className="hover:text-white transition-colors whitespace-nowrap">Chronicles</a>
+            <a href="#built-with-agents" className="hover:text-white transition-colors whitespace-nowrap">Built</a>
+            <a href="#socials" className="hover:text-white transition-colors whitespace-nowrap">Socials</a>
+            <a href="#contact" className="hover:text-white transition-colors whitespace-nowrap">Contact</a>
+          </div>
         </div>
       </nav>
 

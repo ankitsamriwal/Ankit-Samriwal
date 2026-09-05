@@ -5,6 +5,10 @@ import { ESSAYS, SUBSTACK_URL } from '../constants';
 const SubstackSection: React.FC = () => {
   return (
     <Section id="writing" label="Writing on Substack">
+      <div className="mb-10 md:mb-12 max-w-3xl">
+        <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] mb-5">Essays on the agentic shift.</h2>
+        <p className="text-neutral-400 leading-relaxed max-w-2xl">Long-form analysis lives on Substack; the weekly build log lives below in AI Chronicles. Same thesis, two tempos.</p>
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         {ESSAYS.map((essay) => (
           <a

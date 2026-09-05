@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Article, articles as baseArticles } from '../data/chronicles';
 import { articles21To25 } from '../data/chronicles-21-25';
 import { articles26To30 } from '../data/chronicles-26-30';
@@ -43,6 +43,15 @@ const AiChronicles: React.FC = () => {
   const [category, setCategory] = useState('All');
   const [selected, setSelected] = useState<Article | null>(null);
 
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelected(null);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selected]);
+
   const categories = useMemo(() => ['All', ...Array.from(new Set(articles.map((article) => article.category)))], []);
   const filtered = articles.filter((article) => {
     const text = `${article.title} ${article.excerpt} ${article.category} ${article.tags.join(' ')}`.toLowerCase();
@@ -50,7 +59,7 @@ const AiChronicles: React.FC = () => {
   });
 
   return (
-    <section id="chronicles" className="py-16 md:py-24">
+    <section id="chronicles" className="py-12 md:py-20">
       <div className="mb-10">
         <div className="mono text-xs uppercase tracking-[0.3em] text-blue-300 mb-5">AI Chronicles</div>
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 items-end">
@@ -67,8 +76,8 @@ const AiChronicles: React.FC = () => {
       </div>
 
       <div className="mb-8 flex flex-col lg:flex-row gap-4 lg:items-center lg:justify-between">
-        <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search AI agents, governance, delivery..." className="w-full lg:max-w-md px-5 py-4 rounded-full bg-white/[0.04] border border-white/10 outline-none focus:border-blue-400/50 text-sm text-white placeholder:text-neutral-600" />
-        <div className="flex gap-2 overflow-x-auto pb-2 lg:pb-0">
+        <input aria-label="Search AI Chronicles" type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search AI agents, governance, delivery..." className="w-full lg:max-w-md px-5 py-4 rounded-full bg-white/[0.04] border border-white/10 outline-none focus:border-blue-400/50 text-sm text-white placeholder:text-neutral-600" />
+        <div className="flex gap-2 overflow-x-auto no-scrollbar lg:flex-wrap lg:justify-end">
           {categories.map((item) => <button key={item} onClick={() => setCategory(item)} className={`whitespace-nowrap px-4 py-2 rounded-full mono text-[11px] uppercase tracking-[0.16em] border transition-all ${category === item ? 'bg-white text-black border-white' : 'bg-white/[0.03] text-neutral-400 border-white/10 hover:text-white'}`}>{item}</button>)}
         </div>
       </div>
@@ -97,9 +106,9 @@ const AiChronicles: React.FC = () => {
       </div>
 
       {selected && (
-        <div className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-xl overflow-y-auto">
+        <div className="fixed inset-0 z-[80] bg-black/80 backdrop-blur-xl overflow-y-auto" role="dialog" aria-modal="true" onClick={() => setSelected(null)}>
           <div className="min-h-screen px-4 py-8 md:py-14">
-            <article className="max-w-4xl mx-auto rounded-[2rem] glass overflow-hidden border border-white/10 shadow-2xl bg-black/80">
+            <article onClick={(event) => event.stopPropagation()} className="max-w-4xl mx-auto rounded-[2rem] glass overflow-hidden border border-white/10 shadow-2xl bg-black/80">
               <div className="p-6 md:p-10 lg:p-12">
                 <button onClick={() => setSelected(null)} className="float-right w-10 h-10 rounded-full bg-white text-black font-bold">×</button>
                 <div className="mono text-xs uppercase tracking-[0.25em] text-blue-300 mb-4">{selected.week} · {selected.date} · {selected.readTime}</div>
