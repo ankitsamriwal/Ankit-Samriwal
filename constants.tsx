@@ -1,25 +1,39 @@
+import { Essay, Prototype, SocialLink } from './types';
 
-import React from 'react';
-import { Repository, SocialLink } from './types';
+export const SUBSTACK_URL = "https://ankitsamriwal.substack.com";
 
-export const GITHUB_REPOS: Repository[] = [
+export const ESSAYS: Essay[] = [
   {
-    id: 1,
-    name: "Modern-UI-Framework",
-    description: "A lightweight React component library focused on high performance and glassmorphism design patterns.",
-    url: "https://github.com/ankitsamriwal",
-    stars: 124,
-    language: "TypeScript",
-    color: "#3178c6"
+    title: "From Software Developer to Agentic AI Engineer: A 9-Month Roadmap",
+    subtitle: "A practical, staged path for working developers who want to build agentic systems rather than just prompt them.",
+    url: "https://ankitsamriwal.substack.com/p/from-software-developer-to-agentic",
+    readTime: "5 min read"
   },
   {
-    id: 2,
-    name: "Gemini-Automations",
-    description: "Personal suite of AI-driven tools using Google's GenAI for daily developer task automation.",
-    url: "https://github.com/ankitsamriwal",
-    stars: 89,
-    language: "JavaScript",
-    color: "#f1e05a"
+    title: "The Agent-Native Organization Will Not Look Like Today's Company",
+    subtitle: "What happens to org charts, governance, and delivery models when agents do real work inside the enterprise.",
+    url: "https://ankitsamriwal.substack.com/p/the-agent-native-organization-will",
+    readTime: "4 min read"
+  }
+];
+
+export const PROTOTYPES: Prototype[] = [
+  {
+    name: "Gurgaon Leaderboard",
+    tagline: "Pay-to-rank public leaderboard",
+    description: "A live pay-to-rank ladder for Gurgaon real estate projects. Bidders pay to top the board: taking #1 means outbidding the leader's cumulative total by just Rs 1. RERA number on every card, daily and overall topper badges, and a ticking leader-since clock. Payments run in mock mode behind an env flag, with Razorpay checkout wired for when it goes live.",
+    url: "https://gurgaon-leaderboard.onrender.com",
+    stack: ["Python", "Flask", "SQLite", "Razorpay (mock)"],
+    status: "Live demo"
+  },
+  {
+    name: "RFP Proposal Pipeline",
+    tagline: "Multi-agent RFP response automation",
+    description: "A prototype of the pipeline I use to think about presales automation: ingest an RFP, then produce an executive summary, gap analysis, clarification-question log, risk flags, a compliance matrix, and a proposal skeleton - with per-stage audit manifests and human-in-the-loop gates. Pluggable LLM providers with a deterministic mock mode.",
+    url: "https://github.com/ankitsamriwal/rfp-proposal-pipeline",
+    repoUrl: "https://github.com/ankitsamriwal/rfp-proposal-pipeline",
+    stack: ["Python", "CLI", "OpenAI / Anthropic / Ollama", "Mock mode"],
+    status: "Open-source prototype"
   }
 ];
 

@@ -1,20 +1,31 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# Ankit Samriwal - Personal Site
 
-# Run and deploy your AI Studio app
+Source for [ankit-samriwal.vercel.app](https://ankit-samriwal.vercel.app/), my personal site: essays on agentic AI and the enterprise, the AI Chronicles series, and prototypes built with AI agents.
 
-This contains everything you need to run your app locally.
+## Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1BpFz_MSxSXpP6m7fXC2qTsB4I2Aylkcu
+- React 18 + TypeScript
+- Vite 5
+- Tailwind CSS 3 (PostCSS build, no CDN)
+- Deployed on Vercel (auto-deploys from `main`)
 
-## Run Locally
+## Run locally
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+npm run dev
+```
 
+## Build
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+```bash
+npm run build
+npm run preview
+```
+
+## Structure
+
+- `App.tsx` - page composition
+- `components/` - sections (About, Writing/Substack, AI Chronicles, Built with Agents, Socials, Contact)
+- `data/` - AI Chronicles article data
+- `constants.tsx` - essays, prototypes, social links

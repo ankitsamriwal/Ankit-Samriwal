@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Section from './components/Section';
-import RepoCard from './components/RepoCard';
 import TechCarousel from './components/TechCarousel';
 import AiChronicles from './components/AiChronicles';
-import { GITHUB_REPOS, SOCIAL_LINKS } from './constants';
+import SubstackSection from './components/SubstackSection';
+import PrototypesSection from './components/PrototypesSection';
+import { SOCIAL_LINKS } from './constants';
 
 const App: React.FC = () => {
   const [mounted, setMounted] = useState(false);
@@ -26,8 +27,9 @@ const App: React.FC = () => {
           <a href="#top" className="text-lg font-bold tracking-tight">Ankit.</a>
           <div className="hidden md:flex gap-6 text-sm font-medium text-neutral-400">
             <a href="#about" className="hover:text-white transition-colors">About</a>
+            <a href="#writing" className="hover:text-white transition-colors">Writing</a>
             <a href="#chronicles" className="hover:text-white transition-colors">AI Chronicles</a>
-            <a href="#projects" className="hover:text-white transition-colors">Projects</a>
+            <a href="#built-with-agents" className="hover:text-white transition-colors">Built with Agents</a>
             <a href="#socials" className="hover:text-white transition-colors">Socials</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
           </div>
@@ -42,11 +44,14 @@ const App: React.FC = () => {
             Digital Transformation Leader <br className="hidden md:block" />
             documenting the <span className="text-white">AI shift.</span>
           </h1>
-          <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl mb-10">
+          <p className="text-lg md:text-xl text-neutral-400 leading-relaxed max-w-2xl mb-6">
             Hi, I'm <span className="text-white font-medium">Ankit Samriwal</span>. I work at the intersection of enterprise delivery, AI adoption, programme governance, and modern digital products.
           </p>
+          <p className="text-sm md:text-base text-neutral-500 leading-relaxed max-w-2xl mb-10">
+            Agentic AI and the enterprise, written by someone who builds and sells these systems for a living. 21+ years in enterprise software.
+          </p>
           <div className="flex flex-wrap gap-4">
-            <a href="#chronicles" className="px-5 py-3 rounded-full bg-white text-black hover:bg-neutral-200 transition-all text-sm font-bold">Read AI Chronicles</a>
+            <a href="#writing" className="px-5 py-3 rounded-full bg-white text-black hover:bg-neutral-200 transition-all text-sm font-bold">Read the Essays</a>
             {SOCIAL_LINKS.map((link) => (
               <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-3 rounded-full glass hover:bg-white/10 transition-all text-sm font-medium border border-white/5">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d={link.icon} /></svg>
@@ -69,16 +74,11 @@ const App: React.FC = () => {
           <TechCarousel />
         </Section>
 
+        <SubstackSection />
+
         <AiChronicles />
 
-        <Section id="projects" label="Featured Repositories">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {GITHUB_REPOS.map((repo) => <RepoCard key={repo.id} repo={repo} />)}
-          </div>
-          <div className="mt-8 text-center">
-            <a href="https://github.com/ankitsamriwal" className="text-sm font-medium text-neutral-500 hover:text-white transition-colors underline underline-offset-8" target="_blank" rel="noopener noreferrer">View all projects on GitHub →</a>
-          </div>
-        </Section>
+        <PrototypesSection />
 
         <Section id="socials" label="Connect">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -102,13 +102,14 @@ const App: React.FC = () => {
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 opacity-50"></div>
             <h2 className="text-3xl font-bold mb-4">Let's build something great.</h2>
             <p className="text-neutral-400 mb-8 max-w-md mx-auto">I'm open to opportunities, collaborations, or conversations about enterprise AI, digital transformation, and the future of work.</p>
-            <a href="mailto:hello@ankitsamriwal.dev" className="inline-block px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-all hover:scale-105 active:scale-95">Send an Email</a>
+            <a href="mailto:ankitsamriwal@gmail.com" className="inline-block px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-all hover:scale-105 active:scale-95">Send an Email</a>
           </div>
         </Section>
 
         <footer className="mt-20 pt-12 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
           <p>© {new Date().getFullYear()} Ankit Samriwal. Built with React.</p>
           <div className="flex gap-6">
+            <a href="#writing" className="hover:text-white transition-colors">Writing</a>
             <a href="#chronicles" className="hover:text-white transition-colors">AI Chronicles</a>
             <a href="https://x.com/ankitsamriwal" className="hover:text-white transition-colors">Twitter</a>
             <a href="https://www.linkedin.com/in/ankitsamriwal" className="hover:text-white transition-colors">LinkedIn</a>

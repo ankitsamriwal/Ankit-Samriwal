@@ -1,18 +1,15 @@
-
 import React from 'react';
 
 const ITEMS = [
-  { name: "TypeScript", category: "tech" },
-  { name: "React", category: "tech" },
-  { name: "Flutter", category: "tech" },
-  { name: "Node.js", category: "tech" },
-  { name: "Replit", category: "platform" },
-  { name: "Vercel", category: "platform" },
-  { name: "Google AI Studio", category: "platform" },
-  { name: "Claude", category: "tool" },
-  { name: "Cursor", category: "tool" },
-  { name: "OpenAI", category: "model" },
-  { name: "Google Gemini", category: "model" },
+  { name: "Dynamics 365", category: "enterprise" },
+  { name: "Business Central", category: "enterprise" },
+  { name: "Power Platform", category: "enterprise" },
+  { name: "Copilot Studio", category: "enterprise" },
+  { name: "Azure", category: "enterprise" },
+  { name: "Claude", category: "builder" },
+  { name: "Cursor", category: "builder" },
+  { name: "Vercel", category: "builder" },
+  { name: "GitHub", category: "builder" },
 ];
 
 const TechCarousel: React.FC = () => {
@@ -22,16 +19,18 @@ const TechCarousel: React.FC = () => {
 
   const getStyles = (category: string) => {
     switch (category) {
-      case 'tech': return 'bg-blue-500/10 border-blue-500/20 text-blue-300';
-      case 'platform': return 'bg-purple-500/10 border-purple-500/20 text-purple-300';
-      case 'tool': return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300';
-      case 'model': return 'bg-amber-500/10 border-amber-500/20 text-amber-300';
+      case 'enterprise': return 'bg-blue-500/10 border-blue-500/20 text-blue-300';
+      case 'builder': return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300';
       default: return 'bg-neutral-500/10 border-neutral-500/20 text-neutral-300';
     }
   };
 
   return (
     <div className="w-full overflow-hidden relative group py-6">
+      <div className="flex justify-center gap-6 mb-2 mono text-[10px] uppercase tracking-[0.25em]">
+        <span className="text-blue-300/70">Enterprise stack</span>
+        <span className="text-emerald-300/70">Builder stack</span>
+      </div>
       {/* Gradients for smooth fade effect on edges - Increased z-index and width */}
       <div className="absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-[#050505] to-transparent pointer-events-none"></div>
       <div className="absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-[#050505] to-transparent pointer-events-none"></div>
