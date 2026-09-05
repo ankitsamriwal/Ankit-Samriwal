@@ -1,53 +1,40 @@
 import React from 'react';
 
 const ITEMS = [
-  { name: "Dynamics 365", category: "enterprise" },
-  { name: "Business Central", category: "enterprise" },
-  { name: "Power Platform", category: "enterprise" },
-  { name: "Copilot Studio", category: "enterprise" },
-  { name: "Azure", category: "enterprise" },
-  { name: "Claude", category: "builder" },
-  { name: "Cursor", category: "builder" },
-  { name: "Vercel", category: "builder" },
-  { name: "GitHub", category: "builder" },
+  { name: "Flutter", icon: "/icons/flutter.svg" },
+  { name: "TypeScript", icon: "/icons/typescript.svg" },
+  { name: "JavaScript", icon: "/icons/javascript.svg" },
+  { name: "React", icon: "/icons/react.svg" },
+  { name: "GitHub Copilot", icon: "/icons/github-copilot.svg" },
+  { name: "Azure", icon: "/icons/azure.svg" },
+  { name: "AWS S3", icon: "/icons/aws-s3.svg" },
+  { name: "AWS Bedrock", icon: "/icons/aws-bedrock.svg" },
+  { name: "Azure Fabric", icon: "/icons/azure-fabric.svg" },
 ];
 
 const TechCarousel: React.FC = () => {
-  // Use 4 sets to ensure seamless loop with translateX(-50%)
-  // Math: 4 sets total. -50% moves 2 sets. Set 3 starts exactly where Set 1 started.
+  // 4 sets so translateX(-50%) lands exactly where set 1 began = seamless loop
   const list = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS];
-
-  const getStyles = (category: string) => {
-    switch (category) {
-      case 'enterprise': return 'bg-blue-500/10 border-blue-500/20 text-blue-300';
-      case 'builder': return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300';
-      default: return 'bg-neutral-500/10 border-neutral-500/20 text-neutral-300';
-    }
-  };
 
   return (
     <div className="w-full overflow-hidden relative group py-6">
-      <div className="flex justify-center gap-6 mb-2 mono text-[10px] uppercase tracking-[0.25em]">
-        <span className="text-blue-300/70">Enterprise stack</span>
-        <span className="text-emerald-300/70">Builder stack</span>
-      </div>
-      {/* Gradients for smooth fade effect on edges - Increased z-index and width */}
+      {/* Gradients for smooth fade effect on edges */}
       <div className="absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-[#050505] to-transparent pointer-events-none"></div>
       <div className="absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-[#050505] to-transparent pointer-events-none"></div>
 
-      {/* Container for the scrolling track */}
       <div className="flex w-max gap-4 animate-scroll group-hover:[animation-play-state:paused]">
         {list.map((item, index) => (
           <div
             key={`${item.name}-${index}`}
-            className={`
-              px-6 py-3 rounded-xl border backdrop-blur-md transition-all duration-300
-              ${getStyles(item.category)}
+            className="
+              px-6 py-4 rounded-xl border border-white/10 bg-white/[0.04] backdrop-blur-md
+              transition-all duration-300
               hover:bg-white/10 hover:border-white/30 hover:scale-105 cursor-default
-              flex items-center justify-center
-            `}
+              flex items-center gap-3
+            "
           >
-            <span className="text-sm font-semibold tracking-wide whitespace-nowrap">{item.name}</span>
+            <img src={item.icon} alt={`${item.name} logo`} className="w-6 h-6" loading="lazy" />
+            <span className="text-sm font-semibold tracking-wide whitespace-nowrap text-neutral-200">{item.name}</span>
           </div>
         ))}
       </div>

@@ -22,8 +22,9 @@ export const PROTOTYPES: Prototype[] = [
     name: "Gurgaon Leaderboard",
     tagline: "Pay-to-rank public leaderboard",
     description: "A live pay-to-rank ladder for Gurgaon real estate projects. Bidders pay to top the board: taking #1 means outbidding the leader's cumulative total by just Rs 1. RERA number on every card, daily and overall topper badges, and a ticking leader-since clock. Payments run in mock mode behind an env flag, with Razorpay checkout wired for when it goes live.",
-    url: "https://gurgaon-leaderboard.onrender.com",
-    stack: ["Python", "Flask", "SQLite", "Razorpay (mock)"],
+    url: "https://web-production-9eb47.up.railway.app/",
+    repoUrl: "https://github.com/ankitsamriwal/gurgaon-leaderboard",
+    stack: ["Python", "FastAPI", "PostgreSQL", "Redis", "React", "Razorpay (mock)"],
     status: "Live demo"
   },
   {
