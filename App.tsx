@@ -26,6 +26,7 @@ const App: React.FC = () => {
             <a href="#writing" className="hover:text-white transition-colors whitespace-nowrap">Writing</a>
             <a href="#chronicles" className="hover:text-white transition-colors whitespace-nowrap">Chronicles</a>
             <a href="#built-with-agents" className="hover:text-white transition-colors whitespace-nowrap">Built</a>
+            <a href="#socials" className="hover:text-white transition-colors whitespace-nowrap">Socials</a>
             <a href="#contact" className="hover:text-white transition-colors whitespace-nowrap">Contact</a>
           </div>
         </div>
@@ -47,6 +48,14 @@ const App: React.FC = () => {
           <div className="flex flex-wrap gap-4 justify-center">
             <a href="#writing" className="px-6 py-3 rounded-full bg-white text-black hover:bg-neutral-200 transition-all text-sm font-bold">Read the Essays</a>
             <a href="#built-with-agents" className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm font-medium">See the Builds</a>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-3 justify-center">
+            {SOCIAL_LINKS.map((link) => (
+              <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-neutral-400 hover:text-white hover:border-orange-300/60 transition-all text-xs font-medium">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d={link.icon} /></svg>
+                {link.platform}
+              </a>
+            ))}
           </div>
         </section>
 
