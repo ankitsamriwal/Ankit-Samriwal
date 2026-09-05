@@ -3,8 +3,9 @@ import { Article, articles as baseArticles } from '../data/chronicles';
 import { articles21To25 } from '../data/chronicles-21-25';
 import { articles26To30 } from '../data/chronicles-26-30';
 import { articles31To35 } from '../data/chronicles-31-35';
+import { articles36To40 } from '../data/chronicles-36-40';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
