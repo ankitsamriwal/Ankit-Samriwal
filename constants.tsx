@@ -19,6 +19,24 @@ export const ESSAYS: Essay[] = [
 
 export const PROTOTYPES: Prototype[] = [
   {
+    name: "Hold My Beer",
+    tagline: "Breath-hold beer-pour challenge",
+    description: "Hold your breath and the beer pours - release, and your fill level at the 60-second cap is your rank, from Below Average up to Superhuman across 8 tiers. Hyper-real glass rendered on canvas, pour-only ASMR audio, and a first-visit safety gate. Testing well with friends; a paid leaderboard tier is on the drawing board.",
+    url: "https://breathtakingbeer.vercel.app",
+    repoUrl: "https://github.com/ankitsamriwal/breath-hold-beer",
+    stack: ["Vanilla JS", "Canvas", "Web Audio API", "Vercel"],
+    status: "Live game"
+  },
+  {
+    name: "Divine Hub",
+    tagline: "Hindu prayers, aartis and japa counter",
+    description: "A one-stop hub for sacred Hindu prayers: aartis, chalisas, stotrams and mantras with Devanagari text, transliteration and full English meaning. Audio narration, a japa mala counter, and an on-device divine guide that answers questions about the prayers - with an optional Gemini upgrade for deeper answers. Fully static, works without a key.",
+    url: "https://ankitsamriwal.github.io/divine-hub/",
+    repoUrl: "https://github.com/ankitsamriwal/divine-hub",
+    stack: ["Static HTML/CSS/JS", "Web Speech API", "Gemini API (optional)", "GitHub Pages"],
+    status: "Live"
+  },
+  {
     name: "Gurgaon Leaderboard",
     tagline: "Pay-to-rank public leaderboard",
     description: "A live pay-to-rank ladder for Gurgaon real estate projects. Bidders pay to top the board: taking #1 means outbidding the leader's cumulative total by just Rs 1. RERA number on every card, daily and overall topper badges, and a ticking leader-since clock. Payments run in mock mode behind an env flag, with Razorpay checkout wired for when it goes live.",
