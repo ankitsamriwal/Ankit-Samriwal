@@ -47,6 +47,7 @@ const AiChronicles: React.FC = () => {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
   const [selected, setSelected] = useState<Article | null>(null);
+  const [yearOverrides, setYearOverrides] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!selected) return;
@@ -62,6 +63,24 @@ const AiChronicles: React.FC = () => {
     const text = `${article.title} ${article.excerpt} ${article.category} ${article.tags.join(' ')}`.toLowerCase();
     return (category === 'All' || article.category === category) && text.includes(query.toLowerCase());
   });
+
+  const latestYear = useMemo(() => String(Math.max(...articles.map((article) => Number(article.date.slice(0, 4))))), []);
+  const filtering = query.trim() !== '' || category !== 'All';
+
+  const grouped = useMemo(() => {
+    const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
+    const byYear = new Map<string, Article[]>();
+    sorted.forEach((article) => {
+      const year = article.date.slice(0, 4);
+      if (!byYear.has(year)) byYear.set(year, []);
+      byYear.get(year)!.push(article);
+    });
+    return Array.from(byYear.entries()).sort((a, b) => b[0].localeCompare(a[0]));
+  }, [filtered]);
+
+  const isYearOpen = (year: string) => filtering || (yearOverrides[year] ?? year === latestYear);
+  const toggleYear = (year: string) =>
+    setYearOverrides((prev) => ({ ...prev, [year]: !(prev[year] ?? year === latestYear) }));
 
   return (
     <section id="chronicles" className="py-12 md:py-20">
@@ -80,18 +99,36 @@ const AiChronicles: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filtered.map((article, index) => (
-          <button key={`${article.week}-${article.title}`} onClick={() => setSelected(article)} className="group text-left glass rounded-[2rem] overflow-hidden border border-white/10 hover:border-blue-400/40 hover:bg-white/[0.05] transition-all duration-500">
-            <div className="h-52 overflow-hidden bg-neutral-900"><img src={heroImages[index % heroImages.length]} alt="" loading="lazy" className="w-full h-full object-cover opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" /></div>
-            <div className="p-6 md:p-8">
-              <div className="mono text-[11px] uppercase tracking-[0.22em] text-blue-300 mb-4">{article.week} · {article.date} · {article.category}</div>
-              <h3 className="text-2xl font-extrabold tracking-tight leading-tight mb-4 group-hover:text-blue-100 transition-colors">{article.title}</h3>
-              <p className="text-neutral-400 leading-7 mb-6">{article.excerpt}</p>
-              <div className="flex items-center justify-between gap-4"><span className="mono text-xs text-neutral-500">{article.readTime}</span><span className="text-sm font-semibold text-white">Read article →</span></div>
+      <div className="space-y-12">
+        {grouped.map(([year, yearArticles]) => {
+          const open = isYearOpen(year);
+          return (
+            <div key={year}>
+              <button onClick={() => toggleYear(year)} aria-expanded={open} className="w-full flex items-center justify-between gap-4 mb-6 group">
+                <div className="flex items-baseline gap-4">
+                  <span className="text-3xl md:text-4xl font-extrabold tracking-tight group-hover:text-blue-100 transition-colors">{year}</span>
+                  <span className="mono text-[11px] uppercase tracking-[0.22em] text-neutral-500">{yearArticles.length} {yearArticles.length === 1 ? 'entry' : 'entries'}</span>
+                </div>
+                <span className={`w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-neutral-300 transition-transform duration-300 ${open ? 'rotate-90' : ''}`}>›</span>
+              </button>
+              {open && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {yearArticles.map((article) => (
+                    <button key={`${article.week}-${article.title}`} onClick={() => setSelected(article)} className="group text-left glass rounded-[2rem] overflow-hidden border border-white/10 hover:border-blue-400/40 hover:bg-white/[0.05] transition-all duration-500">
+                      <div className="h-52 overflow-hidden bg-neutral-900"><img src={heroImages[articles.indexOf(article) % heroImages.length]} alt="" loading="lazy" className="w-full h-full object-cover opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" /></div>
+                      <div className="p-6 md:p-8">
+                        <div className="mono text-[11px] uppercase tracking-[0.22em] text-blue-300 mb-4">{article.week} · {article.date} · {article.category}</div>
+                        <h3 className="text-2xl font-extrabold tracking-tight leading-tight mb-4 group-hover:text-blue-100 transition-colors">{article.title}</h3>
+                        <p className="text-neutral-400 leading-7 mb-6">{article.excerpt}</p>
+                        <div className="flex items-center justify-between gap-4"><span className="mono text-xs text-neutral-500">{article.readTime}</span><span className="text-sm font-semibold text-white">Read article →</span></div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-          </button>
-        ))}
+          );
+        })}
       </div>
 
       <div className="mt-10 glass rounded-[2rem] p-6 md:p-8 border border-white/10">
