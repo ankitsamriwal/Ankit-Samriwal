@@ -1,4 +1,4 @@
-const CACHE = 'ankit-site-v2';
+const CACHE = 'ankit-site-v3';
 const CORE = ['/', '/index.html', '/manifest.webmanifest', '/icons/pwa-192.png', '/icons/pwa-512.png'];
 
 self.addEventListener('install', (e) => {
