@@ -31,9 +31,9 @@ export const PROTOTYPES: Prototype[] = [
     name: "Divine Hub",
     tagline: "Hindu prayers, aartis and japa counter",
     description: "A one-stop hub for sacred Hindu prayers: aartis, chalisas, stotrams and mantras with Devanagari text, transliteration and full English meaning. Audio narration, a japa mala counter, and an on-device divine guide that answers questions about the prayers - with an optional Gemini upgrade for deeper answers. Fully static, works without a key.",
-    url: "https://ankitsamriwal.github.io/divine-hub/",
+    url: "https://roadtodivinity.vercel.app",
     repoUrl: "https://github.com/ankitsamriwal/divine-hub",
-    stack: ["Static HTML/CSS/JS", "Web Speech API", "Gemini API (optional)", "GitHub Pages"],
+    stack: ["Static HTML/CSS/JS", "Web Speech API", "Gemini API via Cloudflare Worker", "Vercel"],
     status: "Live"
   },
   {
@@ -53,6 +53,22 @@ export const PROTOTYPES: Prototype[] = [
     repoUrl: "https://github.com/ankitsamriwal/rfp-proposal-pipeline",
     stack: ["Python", "CLI", "OpenAI / Anthropic / Ollama", "Mock mode"],
     status: "Open-source prototype"
+  },
+  {
+    name: "Wonderbyte",
+    tagline: "AI concepts for kids 6-12",
+    description: "Kids teach Bit the robot how AI works instead of getting lectured - train him, watch him fail on one-sided data, fix him, and learn when not to trust him. Playable islands covering classifiers, biased data and AI-in-the-wild, a Brain Book of concept cards, and a parent dashboard. No ads, no streaks, no dark patterns: parents buy, kids learn.",
+    url: "https://wonderbyte-pearl.vercel.app",
+    stack: ["React", "PWA", "Offline-first", "Vercel"],
+    status: "Live"
+  },
+  {
+    name: "Baby Chronicles",
+    tagline: "Pregnancy-to-first-birthday keepsake",
+    description: "Parents capture notes, photos, scans, reports and milestones; the app turns them into a journey viewed by day, week, month, trimester or year. Cinematic Story So Far film, sealed letters to the baby, a PIN-locked medical vault, 40-week guidance, and a keepsake film for the first birthday. All data stays on-device - zero servers.",
+    url: "https://babychronicles.vercel.app",
+    stack: ["React", "On-device storage", "PWA + Android APK", "Vercel"],
+    status: "Live"
   }
 ];
 
