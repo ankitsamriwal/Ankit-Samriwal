@@ -8,8 +8,9 @@ import { articles41To45 } from '../data/chronicles-41-45';
 import { articles46To50 } from '../data/chronicles-46-50';
 import { articles51To53 } from '../data/chronicles-51-53';
 import { articles54 } from '../data/chronicles-54';
+import { articles55 } from '../data/chronicles-55';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
