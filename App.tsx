@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TechCarousel from './components/TechCarousel';
 import AiChronicles from './components/AiChronicles';
+import Dashboards from './components/Dashboards';
 import { SOCIAL_LINKS, ESSAYS, PROTOTYPES, SUBSTACK_URL } from './constants';
 
 const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
@@ -13,23 +14,49 @@ const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
 
 const App: React.FC = () => {
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => { setMounted(true); }, []);
   if (!mounted) return null;
+
+  const navLinks = [
+    { href: '#about', label: 'About' },
+    { href: '#writing', label: 'Writing' },
+    { href: '#chronicles', label: 'Chronicles' },
+    { href: '#built-with-agents', label: 'Built' },
+    { href: '#dashboards', label: 'Dashboards' },
+    { href: '#socials', label: 'Socials' },
+    { href: '#contact', label: 'Contact' },
+  ];
 
   return (
     <div className="min-h-screen bg-[#050505] selection:bg-orange-300 selection:text-black">
       <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="#top" className="text-lg font-bold tracking-tight">Ankit.</a>
-          <div className="flex gap-5 text-xs font-medium text-neutral-400 overflow-x-auto no-scrollbar max-w-[70vw]">
-            <a href="#about" className="hover:text-white transition-colors whitespace-nowrap">About</a>
-            <a href="#writing" className="hover:text-white transition-colors whitespace-nowrap">Writing</a>
-            <a href="#chronicles" className="hover:text-white transition-colors whitespace-nowrap">Chronicles</a>
-            <a href="#built-with-agents" className="hover:text-white transition-colors whitespace-nowrap">Built</a>
-            <a href="#socials" className="hover:text-white transition-colors whitespace-nowrap">Socials</a>
-            <a href="#contact" className="hover:text-white transition-colors whitespace-nowrap">Contact</a>
+          <div className="hidden md:flex gap-5 text-xs font-medium text-neutral-400">
+            {navLinks.map((l) => (
+              <a key={l.href} href={l.href} className="hover:text-white transition-colors whitespace-nowrap">{l.label}</a>
+            ))}
           </div>
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Menu"
+            className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 rounded-lg border border-white/10 px-2"
+          >
+            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`}></span>
+            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`}></span>
+          </button>
         </div>
+        {menuOpen && (
+          <div className="md:hidden border-t border-white/5 bg-[#050505]/95 backdrop-blur-md">
+            <div className="max-w-3xl mx-auto px-6 py-4 flex flex-col">
+              {navLinks.map((l) => (
+                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="py-3 text-sm font-medium text-neutral-400 hover:text-white transition-colors border-b border-white/5 last:border-0">{l.label}</a>
+              ))}
+            </div>
+          </div>
+        )}
       </nav>
 
       <main id="top" className="max-w-3xl mx-auto px-6 pt-36 pb-24">
@@ -139,8 +166,13 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <section id="dashboards" className="mb-20">
+          <Num n="05" label="Executive Dashboards" />
+          <Dashboards />
+        </section>
+
         <section id="socials" className="mb-20">
-          <Num n="05" label="Connect" />
+          <Num n="06" label="Connect" />
           <div className="glass rounded-[2rem] p-4 md:p-6 divide-y divide-neutral-800/80">
             {SOCIAL_LINKS.map((link) => (
               <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-4 py-5 group hover:bg-white/[0.02] rounded-xl transition-all">
@@ -153,7 +185,7 @@ const App: React.FC = () => {
         </section>
 
         <section id="contact">
-          <Num n="06" label="Get in touch" />
+          <Num n="07" label="Get in touch" />
           <div className="glass rounded-[2rem] p-10 md:p-14 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300 opacity-60"></div>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Let's build something great.</h2>
