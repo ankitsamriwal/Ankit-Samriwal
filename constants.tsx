@@ -69,8 +69,25 @@ export const PROTOTYPES: Prototype[] = [
     url: "https://babychronicles.vercel.app",
     stack: ["React", "On-device storage", "PWA + Android APK", "Vercel"],
     status: "Live"
+  },
+  {
+    name: "Aaj Kya Pehnu",
+    tagline: "Your closet, styled by the weather",
+    description: "Photograph your closet once and the app does the daily thinking: outfit picks styled around live weather, the occasion and the time of day, plus the whole week planned ahead. Wardrobe insights surface what you actually wear - cost per wear, items aging out, and what is just taking up rail space. Bulk add gets a full closet in fast. Everything stays on-device.",
+    url: "https://aajkyapehnu.vercel.app",
+    stack: ["React", "Live weather styling", "On-device storage", "PWA + Android APK", "Vercel"],
+    status: "Live"
+  },
+  {
+    name: "Unsplurge",
+    tagline: "Every price, in hours of your life",
+    description: "Point it at any price - barcode scan, screenshot OCR, or typed in - and it answers in the only currency that matters: hours of your working life, computed from your own pay. It gives a verdict, logs every pass and every splurge with running totals, and tracks savings goals against real behaviour. 38 currencies, all data on-device.",
+    url: "https://unsplurge.vercel.app",
+    stack: ["React", "Barcode scan + OCR", "On-device storage", "PWA + Android APK", "Vercel"],
+    status: "Live"
   }
 ];
+
 
 export const SOCIAL_LINKS: SocialLink[] = [
   {
