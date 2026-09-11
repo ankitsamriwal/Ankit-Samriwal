@@ -10,7 +10,11 @@ const PrototypesSection: React.FC = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {PROTOTYPES.map((proto) => (
-          <div key={proto.name} className="glass p-8 rounded-[2rem] flex flex-col transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05]">
+          <article key={proto.name} className="glass rounded-[2rem] flex flex-col overflow-hidden transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05]">
+            <a href={proto.url} target="_blank" rel="noopener noreferrer" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-neutral-900">
+              <img src={proto.image} alt={`${proto.name} app screenshot`} loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-[1.02]" />
+            </a>
+            <div className="p-6 md:p-8 flex flex-col flex-1">
             <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
               <span className="mono text-[10px] uppercase tracking-[0.25em] text-emerald-300/80">{proto.status}</span>
               <span className="mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{proto.tagline}</span>
@@ -34,7 +38,8 @@ const PrototypesSection: React.FC = () => {
                 </a>
               )}
             </div>
-          </div>
+            </div>
+          </article>
         ))}
       </div>
     </Section>
