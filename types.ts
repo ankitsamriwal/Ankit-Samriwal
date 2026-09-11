@@ -15,6 +15,7 @@ export interface Prototype {
   name: string;
   tagline: string;
   description: string;
+  image: string;
   url: string;
   repoUrl?: string;
   stack: string[];
