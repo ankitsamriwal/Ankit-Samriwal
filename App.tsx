@@ -136,17 +136,20 @@ const App: React.FC = () => {
 
         <section id="built-with-agents" className="mb-20">
           <Num n="04" label="Built with Agents" />
-          <div className="glass rounded-[2rem] p-8 md:p-12">
-            <p className="text-neutral-400 text-sm md:text-base leading-relaxed mb-10">Working prototypes built end-to-end with AI agents doing the heavy lifting - from spec to deployed code. Learning exercises, shipped anyway.</p>
-            <div className="divide-y divide-neutral-800/80">
-              {PROTOTYPES.map((proto) => (
-                <div key={proto.name} className="py-10 first:pt-0 last:pb-0">
-                  <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-3">
+          <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-2xl mb-10 -mt-4">Working prototypes built end-to-end with AI agents doing the heavy lifting - from spec to deployed code. Learning exercises, shipped anyway.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {PROTOTYPES.map((proto) => (
+              <article key={proto.name} className="glass rounded-[2rem] flex flex-col overflow-hidden transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05]">
+                <a href={proto.url} target="_blank" rel="noopener noreferrer" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-neutral-900">
+                  <img src={proto.image} alt={`${proto.name} app screenshot`} loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-[1.02]" />
+                </a>
+                <div className="p-6 md:p-8 flex flex-col flex-1">
+                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
                     <span className="mono text-[10px] uppercase tracking-[0.25em] text-emerald-300/80">{proto.status}</span>
                     <span className="mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{proto.tagline}</span>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">{proto.name}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-6">{proto.description}</p>
+                  <h3 className="text-xl font-bold mb-3">{proto.name}</h3>
+                  <p className="text-neutral-400 text-sm leading-relaxed mb-6 flex-1">{proto.description}</p>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {proto.stack.map((tech) => (
                       <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-medium text-neutral-300">{tech}</span>
@@ -161,8 +164,8 @@ const App: React.FC = () => {
                     )}
                   </div>
                 </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
         </section>
 
