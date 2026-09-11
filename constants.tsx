@@ -19,6 +19,16 @@ export const ESSAYS: Essay[] = [
 
 export const PROTOTYPES: Prototype[] = [
   {
+    name: "WordByte",
+    tagline: "An AI vocabulary galaxy for kids",
+    description: "Explore 482 terms across AI, data, coding, agents, safety and careers. An age slicer adapts the dictionary from first concepts at 5-7 to the full AI lexicon at 14+.",
+    image: "/projects/wordbyte.png",
+    url: "https://wordbyte.vercel.app",
+    repoUrl: "https://github.com/ankitsamriwal/wordbyte",
+    stack: ["Three.js", "Age-adaptive learning", "PWA"],
+    status: "Live"
+  },
+  {
     name: "Unsplurge",
     tagline: "Price purchases in work-hours",
     description: "See what a purchase costs in hours of your life before you buy. Scan it, pause the impulse, then plan for it - with a Season tab for festive spending.",
