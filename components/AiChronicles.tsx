@@ -49,11 +49,15 @@ const heroImages = [
   'https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=85&w=1400'
 ];
 
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthLabel = (key: string) => `${monthNames[Number(key.slice(5, 7)) - 1]} ${key.slice(0, 4)}`;
+
 const AiChronicles: React.FC = () => {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('All');
   const [selected, setSelected] = useState<Article | null>(null);
   const [yearOverrides, setYearOverrides] = useState<Record<string, boolean>>({});
+  const [monthOverrides, setMonthOverrides] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     if (!selected) return;
@@ -71,6 +75,7 @@ const AiChronicles: React.FC = () => {
   });
 
   const latestYear = useMemo(() => String(Math.max(...articles.map((article) => Number(article.date.slice(0, 4))))), []);
+  const latestMonth = useMemo(() => articles.map((article) => article.date).sort().slice(-1)[0].slice(0, 7), []);
   const filtering = query.trim() !== '' || category !== 'All';
 
   const grouped = useMemo(() => {
@@ -87,6 +92,9 @@ const AiChronicles: React.FC = () => {
   const isYearOpen = (year: string) => filtering || (yearOverrides[year] ?? year === latestYear);
   const toggleYear = (year: string) =>
     setYearOverrides((prev) => ({ ...prev, [year]: !(prev[year] ?? year === latestYear) }));
+  const isMonthOpen = (month: string) => filtering || (monthOverrides[month] ?? month === latestMonth);
+  const toggleMonth = (month: string) =>
+    setMonthOverrides((prev) => ({ ...prev, [month]: !(prev[month] ?? month === latestMonth) }));
 
   return (
     <section id="chronicles" className="py-12 md:py-20">
@@ -118,8 +126,29 @@ const AiChronicles: React.FC = () => {
                 <span className={`w-10 h-10 shrink-0 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-neutral-300 transition-transform duration-300 ${open ? 'rotate-90' : ''}`}>›</span>
               </button>
               {open && (
+                <div className="space-y-10">
+                  {(() => {
+                    const byMonth = new Map<string, Article[]>();
+                    yearArticles.forEach((article) => {
+                      const month = article.date.slice(0, 7);
+                      if (!byMonth.has(month)) byMonth.set(month, []);
+                      byMonth.get(month)!.push(article);
+                    });
+                    return Array.from(byMonth.entries()).sort((a, b) => b[0].localeCompare(a[0]));
+                  })().map(([month, monthArticles]) => {
+                    const monthOpen = isMonthOpen(month);
+                    return (
+                      <div key={month}>
+                        <button onClick={() => toggleMonth(month)} aria-expanded={monthOpen} className="w-full flex items-center justify-between gap-4 mb-6 group">
+                          <div className="flex items-baseline gap-3">
+                            <span className="text-xl md:text-2xl font-bold tracking-tight text-neutral-200 group-hover:text-blue-100 transition-colors">{monthLabel(month)}</span>
+                            <span className="mono text-[11px] uppercase tracking-[0.22em] text-neutral-500">{monthArticles.length} {monthArticles.length === 1 ? 'entry' : 'entries'}</span>
+                          </div>
+                          <span className={`w-8 h-8 shrink-0 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-neutral-400 transition-transform duration-300 ${monthOpen ? 'rotate-90' : ''}`}>›</span>
+                        </button>
+                        {monthOpen && (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {yearArticles.map((article) => (
+                  {monthArticles.map((article) => (
                     <button key={`${article.week}-${article.title}`} onClick={() => setSelected(article)} className="group text-left glass rounded-[2rem] overflow-hidden border border-white/10 hover:border-blue-400/40 hover:bg-white/[0.05] transition-all duration-500">
                       <div className="h-52 overflow-hidden bg-neutral-900"><img src={heroImages[articles.indexOf(article) % heroImages.length]} alt="" loading="lazy" className="w-full h-full object-cover opacity-70 grayscale group-hover:grayscale-0 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700" /></div>
                       <div className="p-6 md:p-8">
@@ -130,6 +159,11 @@ const AiChronicles: React.FC = () => {
                       </div>
                     </button>
                   ))}
+                </div>
+                        )}
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>
