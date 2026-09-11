@@ -19,72 +19,59 @@ export const ESSAYS: Essay[] = [
 
 export const PROTOTYPES: Prototype[] = [
   {
-    name: "Hold My Beer",
-    tagline: "Breath-hold beer-pour challenge",
-    description: "Hold your breath and the beer pours - release, and your fill level at the 60-second cap is your rank, from Below Average up to Superhuman across 8 tiers. Hyper-real glass rendered on canvas, pour-only ASMR audio, and a first-visit safety gate. Testing well with friends; a paid leaderboard tier is on the drawing board.",
-    url: "https://breathtakingbeer.vercel.app",
-    repoUrl: "https://github.com/ankitsamriwal/breath-hold-beer",
-    stack: ["Vanilla JS", "Canvas", "Web Audio API", "Vercel"],
-    status: "Live game"
-  },
-  {
-    name: "Divine Hub",
-    tagline: "Hindu prayers, aartis and japa counter",
-    description: "A one-stop hub for sacred Hindu prayers: aartis, chalisas, stotrams and mantras with Devanagari text, transliteration and full English meaning. Audio narration, a japa mala counter, and an on-device divine guide that answers questions about the prayers - with an optional Gemini upgrade for deeper answers. Fully static, works without a key.",
-    url: "https://roadtodivinity.vercel.app",
-    repoUrl: "https://github.com/ankitsamriwal/divine-hub",
-    stack: ["Static HTML/CSS/JS", "Web Speech API", "Gemini API via Cloudflare Worker", "Vercel"],
-    status: "Live"
-  },
-  {
-    name: "Gurgaon Leaderboard",
-    tagline: "Pay-to-rank public leaderboard",
-    description: "A live pay-to-rank ladder for Gurgaon real estate projects. Bidders pay to top the board: taking #1 means outbidding the leader's cumulative total by just Rs 1. RERA number on every card, daily and overall topper badges, and a ticking leader-since clock. Payments run in mock mode behind an env flag, with Razorpay checkout wired for when it goes live.",
-    url: "https://web-production-9eb47.up.railway.app/",
-    repoUrl: "https://github.com/ankitsamriwal/gurgaon-leaderboard",
-    stack: ["Python", "FastAPI", "PostgreSQL", "Redis", "React", "Razorpay (mock)"],
-    status: "Live demo"
-  },
-  {
-    name: "RFP Proposal Pipeline",
-    tagline: "Multi-agent RFP response automation",
-    description: "A prototype of the pipeline I use to think about presales automation: ingest an RFP, then produce an executive summary, gap analysis, clarification-question log, risk flags, a compliance matrix, and a proposal skeleton - with per-stage audit manifests and human-in-the-loop gates. Pluggable LLM providers with a deterministic mock mode.",
-    url: "https://github.com/ankitsamriwal/rfp-proposal-pipeline",
-    repoUrl: "https://github.com/ankitsamriwal/rfp-proposal-pipeline",
-    stack: ["Python", "CLI", "OpenAI / Anthropic / Ollama", "Mock mode"],
-    status: "Open-source prototype"
-  },
-  {
-    name: "Wonderbyte",
-    tagline: "AI concepts for kids 6-12",
-    description: "Kids teach Bit the robot how AI works instead of getting lectured - train him, watch him fail on one-sided data, fix him, and learn when not to trust him. Playable islands covering classifiers, biased data and AI-in-the-wild, a Brain Book of concept cards, and a parent dashboard. No ads, no streaks, no dark patterns: parents buy, kids learn.",
-    url: "https://wonderbyte-pearl.vercel.app",
-    stack: ["React", "PWA", "Offline-first", "Vercel"],
+    name: "Unsplurge",
+    tagline: "Price purchases in work-hours",
+    description: "See what a purchase costs in hours of your life before you buy. Scan it, pause the impulse, then plan for it - with a Season tab for festive spending.",
+    image: "/8-unsplurge.png",
+    url: "https://unsplurge.vercel.app",
+    stack: ["React", "On-device storage", "PWA + Android APK"],
     status: "Live"
   },
   {
     name: "Baby Chronicles",
-    tagline: "Pregnancy-to-first-birthday keepsake",
-    description: "Parents capture notes, photos, scans, reports and milestones; the app turns them into a journey viewed by day, week, month, trimester or year. Cinematic Story So Far film, sealed letters to the baby, a PIN-locked medical vault, 40-week guidance, and a keepsake film for the first birthday. All data stays on-device - zero servers.",
+    tagline: "Pregnancy to first birthday",
+    description: "Capture notes, photos, scans and milestones from pregnancy through the first year. Private by default, with timelines, medical records and keepsakes kept on-device.",
+    image: "/5-baby-chronicles.png",
     url: "https://babychronicles.vercel.app",
-    stack: ["React", "On-device storage", "PWA + Android APK", "Vercel"],
+    stack: ["React", "On-device storage", "PWA + Android APK"],
     status: "Live"
   },
   {
-    name: "Aaj Kya Pehnu",
-    tagline: "Your closet, styled by the weather",
-    description: "Photograph your closet once and the app does the daily thinking: outfit picks styled around live weather, the occasion and the time of day, plus the whole week planned ahead. Wardrobe insights surface what you actually wear - cost per wear, items aging out, and what is just taking up rail space. Bulk add gets a full closet in fast. Everything stays on-device.",
-    url: "https://aajkyapehnu.vercel.app",
-    stack: ["React", "Live weather styling", "On-device storage", "PWA + Android APK", "Vercel"],
+    name: "What Should I",
+    tagline: "Wear, eat or watch",
+    description: "One place for three daily decisions: what to wear, what to eat and what to watch. Each tab keeps its own journey, preferences and picks.",
+    image: "/9-what-should-i.png",
+    url: "https://whatshouldi.vercel.app",
+    stack: ["React", "Weather + TMDB", "PWA + Android APK"],
     status: "Live"
   },
   {
-    name: "Unsplurge",
-    tagline: "Every price, in hours of your life",
-    description: "Point it at any price - barcode scan, screenshot OCR, or typed in - and it answers in the only currency that matters: hours of your working life, computed from your own pay. It gives a verdict, logs every pass and every splurge with running totals, and tracks savings goals against real behaviour. 38 currencies, all data on-device.",
-    url: "https://unsplurge.vercel.app",
-    stack: ["React", "Barcode scan + OCR", "On-device storage", "PWA + Android APK", "Vercel"],
+    name: "Surya Alarm",
+    tagline: "An alarm you earn the right to stop",
+    description: "The alarm stops only after 12 Surya Namaskars. Camera pose detection counts each round, with a tap fallback when the camera is unavailable.",
+    image: "/7-surya-alarm.png",
+    url: "https://surya-alarm.vercel.app",
+    stack: ["React", "Camera pose detection", "PWA + Android APK"],
     status: "Live"
+  },
+  {
+    name: "Wonderbyte",
+    tagline: "Data and AI for kids",
+    description: "Kids learn Data and AI by teaching a robot, testing ideas and fixing mistakes. Includes 95 words, themed packs and Story Corner, without ads or dark patterns.",
+    image: "/10-wonderbyte.png",
+    url: "https://wonderbyte-pearl.vercel.app",
+    stack: ["React", "Offline-first", "PWA"],
+    status: "Live"
+  },
+  {
+    name: "Breathtaking Beer",
+    tagline: "Breath-hold beer-pour challenge",
+    description: "Hold your breath and the glass fills. Stop, see your rank and try again - a small browser game with a safety gate and no signup.",
+    image: "/6-breathtaking-beer.png",
+    url: "https://breathtakingbeer.vercel.app",
+    repoUrl: "https://github.com/ankitsamriwal/breath-hold-beer",
+    stack: ["Vanilla JS", "Canvas", "Web Audio API"],
+    status: "Live game"
   }
 ];
 
