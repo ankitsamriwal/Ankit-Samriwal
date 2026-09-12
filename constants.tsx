@@ -19,6 +19,24 @@ export const ESSAYS: Essay[] = [
 
 export const PROTOTYPES: Prototype[] = [
   {
+    name: "Mailstorm",
+    tagline: "The agent-first mailbox",
+    description: "Your agent reads Gmail first and hands you obligations, not messages - a day shape each morning, the decisions only you can make, and a commitment graph of what you owe and what is owed to you.",
+    image: "/projects/mailstorm.png",
+    url: "https://mailstorm-v1.vercel.app",
+    stack: ["Gmail API", "Agent read", "Web app"],
+    status: "Live"
+  },
+  {
+    name: "DawaiYaad",
+    tagline: "Medicine reminders that don't give up",
+    description: "Dose reminders that buzz again until you tap taken, with snooze on your terms, a family view and a full dose record. PWA plus a signed Android APK on /get.",
+    image: "/projects/dawaiyaad.png",
+    url: "https://dawaiyaad-lemon.vercel.app",
+    stack: ["React", "Persistent reminders", "PWA + Android APK"],
+    status: "Live"
+  },
+  {
     name: "WordByte",
     tagline: "An AI vocabulary galaxy for kids",
     description: "Explore 482 terms across AI, data, coding, agents, safety and careers. An age slicer adapts the dictionary from first concepts at 5-7 to the full AI lexicon at 14+.",
