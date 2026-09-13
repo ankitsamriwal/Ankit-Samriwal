@@ -63,7 +63,7 @@ const AgenticLandscape: React.FC = () => (
       <div className="p-8 md:p-10 bg-white/[0.02] border-t border-white/10">
         <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300/80 mb-3">Working conclusion</div>
         <p className="text-xl md:text-2xl font-bold leading-snug mb-5">Intelligence will be rented. Orchestration will be mixed. Trusted workflow and distribution will be owned.</p>
-        <a href="#" aria-label="Substack article link coming after publication" className="pointer-events-none text-sm text-neutral-600 underline underline-offset-8">Full analysis on Substack - publishing link pending</a>
+        <a href="https://ankitsamriwal.substack.com/p/agentic-ai-has-four-markets-not-one" target="_blank" rel="noopener noreferrer" className="text-sm text-neutral-300 hover:text-white underline underline-offset-8">Read the full analysis on Substack →</a>
       </div>
     </div>
   </section>
