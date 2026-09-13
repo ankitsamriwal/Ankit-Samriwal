@@ -1,0 +1,263 @@
+"""SQLAlchemy models mirroring docs/01-database-schema.md exactly.
+
+Do not add mutable "current total" columns beyond the documented rebuildable
+caches (`cached_total_paise`, `total_bid_count`) — rank is always derived
+from the `bids` ledger. See docs/01-database-schema.md for the rationale and
+the canonical DDL/transaction this schema must match.
+"""
+
+import uuid
+
+from sqlalchemy import (
+    BigInteger,
+    Boolean,
+    CheckConstraint,
+    ForeignKey,
+    Index,
+    Integer,
+    Text,
+    func,
+)
+from sqlalchemy.dialects.postgresql import JSONB, TIMESTAMP, UUID
+from sqlalchemy.orm import Mapped, mapped_column
+
+from app.db import Base
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    phone: Mapped[str | None] = mapped_column(Text, unique=True)
+    email: Mapped[str | None] = mapped_column(Text, unique=True)
+    display_name: Mapped[str] = mapped_column(Text, nullable=False)
+    is_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    role: Mapped[str] = mapped_column(Text, nullable=False, default="user")
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (CheckConstraint("role IN ('user','developer','admin')", name="ck_users_role"),)
+
+
+class Project(Base):
+    __tablename__ = "projects"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    name: Mapped[str] = mapped_column(Text, nullable=False)
+    developer_name: Mapped[str] = mapped_column(Text, nullable=False)
+    locality: Mapped[str] = mapped_column(Text, nullable=False)
+    rera_number: Mapped[str] = mapped_column(Text, nullable=False)
+    rera_verified: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    rera_verified_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    project_url: Mapped[str | None] = mapped_column(Text)
+    submitted_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    claimed_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="pending_review")
+    cached_total_paise: Mapped[int] = mapped_column(BigInteger, nullable=False, default=0)
+    total_bid_count: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    version: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('pending_review','live','rejected','suspended')", name="ck_projects_status"
+        ),
+        Index("ix_projects_status_total", "status", cached_total_paise.desc()),
+    )
+
+
+class PaymentIntent(Base):
+    __tablename__ = "payment_intents"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    project_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=False)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    amount_paise: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    idempotency_key: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    razorpay_order_id: Mapped[str | None] = mapped_column(Text, unique=True)
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="created")
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+    updated_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint("amount_paise > 0", name="ck_payment_intents_amount_positive"),
+        CheckConstraint(
+            "status IN ('created','order_created','pending_webhook','verified','failed','expired')",
+            name="ck_payment_intents_status",
+        ),
+        Index("ix_intents_status", "status"),
+    )
+
+
+class Bid(Base):
+    __tablename__ = "bids"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    project_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=False)
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    payment_intent_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("payment_intents.id"), nullable=False, unique=True
+    )
+    razorpay_payment_id: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    amount_paise: Mapped[int] = mapped_column(BigInteger, nullable=False)
+    bidder_label: Mapped[str | None] = mapped_column(Text)
+    is_mock: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    reversed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    reversed_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    reversal_reason: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint("amount_paise > 0", name="ck_bids_amount_positive"),
+        Index("ix_bids_project_created", "project_id", created_at.desc()),
+        Index("ix_bids_created_at", created_at.desc()),
+    )
+
+
+class WebhookEvent(Base):
+    __tablename__ = "webhook_events"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    razorpay_event_id: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    event_type: Mapped[str] = mapped_column(Text, nullable=False)
+    payload: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    signature_valid: Mapped[bool] = mapped_column(Boolean, nullable=False)
+    processed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    processed_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    received_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+
+class AdminAction(Base):
+    __tablename__ = "admin_actions"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    admin_user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    action_type: Mapped[str] = mapped_column(Text, nullable=False)
+    target_table: Mapped[str] = mapped_column(Text, nullable=False)
+    target_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
+    notes: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+
+class LeadershipLog(Base):
+    __tablename__ = "leadership_log"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    project_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=False)
+    became_leader_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+    lost_leader_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+
+
+class OtpRequest(Base):
+    """Not in docs/01 — added for the OTP auth flow (docs/00, docs/05)."""
+
+    __tablename__ = "otp_requests"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    phone: Mapped[str | None] = mapped_column(Text)
+    email: Mapped[str | None] = mapped_column(Text)
+    otp_hash: Mapped[str] = mapped_column(Text, nullable=False)
+    attempts: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    consumed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    expires_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), nullable=False)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (CheckConstraint("phone IS NOT NULL OR email IS NOT NULL", name="ck_otp_requests_contact"),)
+
+
+class RefreshToken(Base):
+    """Not in docs/01 — added for refresh-token rotation with reuse
+    detection (docs/05-security-anti-fraud.md)."""
+
+    __tablename__ = "refresh_tokens"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    family_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=False)
+    token_hash: Mapped[str] = mapped_column(Text, nullable=False, unique=True)
+    revoked: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    replaced_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("refresh_tokens.id"))
+    expires_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), nullable=False)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+
+class ProjectClaim(Base):
+    """Not in docs/01 — developer ownership claim queue for
+    docs/02's POST /projects/{id}/claim."""
+
+    __tablename__ = "project_claims"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    project_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=False)
+    claimant_user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    document_url: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="pending")
+    reviewed_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    reviewed_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint("status IN ('pending','approved','rejected')", name="ck_project_claims_status"),
+    )
+
+
+class ReconciliationReport(Base):
+    """Not in docs/01 — stores each nightly reconciliation run's findings
+    (docs/03, docs/07 Phase 6) so GET /admin/reconciliation/report has
+    something to return."""
+
+    __tablename__ = "reconciliation_reports"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    run_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+    projects_checked: Mapped[int] = mapped_column(Integer, nullable=False)
+    mismatch_count: Mapped[int] = mapped_column(Integer, nullable=False)
+    mismatches: Mapped[list] = mapped_column(JSONB, nullable=False)
+
+
+class ProjectDispute(Base):
+    """Not in docs/01 — the takedown/dispute fast path from
+    docs/06-legal-compliance.md point 4: "a real developer who did not
+    submit their own listing needs a fast path to request removal or
+    claim ownership."."""
+
+    __tablename__ = "project_disputes"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    project_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("projects.id"), nullable=False)
+    filed_by_user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    reason: Mapped[str] = mapped_column(Text, nullable=False)
+    contact_email: Mapped[str | None] = mapped_column(Text)
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="pending")
+    priority: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    resolved_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    resolved_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    resolution_notes: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint("status IN ('pending','resolved','rejected')", name="ck_project_disputes_status"),
+    )
+
+
+class DataRequest(Base):
+    """Not in docs/01 — DPDP export/delete capability from
+    docs/06-legal-compliance.md's Data protection section. Deletion is
+    fulfilled by anonymizing the user row, not removing it — docs/06:
+    payment/ledger records must be retained per Razorpay/RBI-driven
+    retention requirements even after a deletion request."""
+
+    __tablename__ = "data_requests"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, server_default=func.gen_random_uuid())
+    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"), nullable=False)
+    request_type: Mapped[str] = mapped_column(Text, nullable=False)
+    status: Mapped[str] = mapped_column(Text, nullable=False, default="pending")
+    fulfilled_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("users.id"))
+    fulfilled_at: Mapped[object | None] = mapped_column(TIMESTAMP(timezone=True))
+    created_at: Mapped[object] = mapped_column(TIMESTAMP(timezone=True), server_default=func.now())
+
+    __table_args__ = (
+        CheckConstraint("request_type IN ('export','delete')", name="ck_data_requests_type"),
+        CheckConstraint("status IN ('pending','fulfilled')", name="ck_data_requests_status"),
+    )
