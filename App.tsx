@@ -3,6 +3,7 @@ import TechCarousel from './components/TechCarousel';
 import AiChronicles from './components/AiChronicles';
 import Dashboards from './components/Dashboards';
 import AgenticLandscape from './components/AgenticLandscape';
+import ContentChat from './components/ContentChat';
 import { SOCIAL_LINKS, ESSAYS, PROTOTYPES, SUBSTACK_URL } from './constants';
 
 const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
@@ -35,10 +36,13 @@ const App: React.FC = () => {
       <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
           <a href="#top" className="text-lg font-bold tracking-tight">Ankit.</a>
-          <div className="hidden md:flex gap-5 text-xs font-medium text-neutral-400">
-            {navLinks.map((l) => (
-              <a key={l.href} href={l.href} className="hover:text-white transition-colors whitespace-nowrap">{l.label}</a>
-            ))}
+          <div className="ml-auto flex items-center gap-3">
+            <a href="https://ankitsamriwal.substack.com/subscribe" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-full bg-orange-300 text-black hover:bg-white transition-colors text-xs font-extrabold whitespace-nowrap">Subscribe</a>
+            <div className="hidden md:flex gap-5 text-xs font-medium text-neutral-400">
+              {navLinks.map((l) => (
+                <a key={l.href} href={l.href} className="hover:text-white transition-colors whitespace-nowrap">{l.label}</a>
+              ))}
+            </div>
           </div>
           <button
             onClick={() => setMenuOpen(!menuOpen)}
@@ -191,6 +195,8 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <ContentChat />
+
         <section id="contact">
           <Num n="07" label="Get in touch" />
           <div className="glass rounded-[2rem] p-10 md:p-14 text-center relative overflow-hidden">
@@ -199,6 +205,13 @@ const App: React.FC = () => {
             <p className="text-neutral-400 mb-8 max-w-md mx-auto">I'm open to opportunities, collaborations, or conversations about enterprise AI, digital transformation, and the future of work.</p>
             <a href="mailto:ankitsamriwal@gmail.com" className="inline-block px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-all">Send an Email</a>
           </div>
+        </section>
+
+        <section className="mt-20 glass rounded-[2rem] p-7 md:p-10 text-center border border-orange-300/20">
+          <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300 mb-3">Stay in the loop</div>
+          <h2 className="text-2xl md:text-3xl font-extrabold mb-2">The next essay, in your inbox.</h2>
+          <p className="text-sm text-neutral-400 mb-5">Subscribe free on Substack. New essays are emailed automatically.</p>
+          <div className="flex justify-center"><iframe src="https://ankitsamriwal.substack.com/embed" width="480" height="150" style={{ maxWidth: '100%', border: 'none', background: 'transparent' }} frameBorder="0" scrolling="no" title="Subscribe at the bottom of the site"></iframe></div>
         </section>
 
         <footer className="mt-20 pt-10 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
