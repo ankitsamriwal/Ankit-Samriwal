@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TechCarousel from './components/TechCarousel';
 import AiChronicles from './components/AiChronicles';
 import Dashboards from './components/Dashboards';
+import AgenticLandscape from './components/AgenticLandscape';
 import { SOCIAL_LINKS, ESSAYS, PROTOTYPES, SUBSTACK_URL } from './constants';
 
 const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
     { href: '#about', label: 'About' },
     { href: '#writing', label: 'Writing' },
     { href: '#chronicles', label: 'Chronicles' },
+    { href: '#agentic-landscape', label: 'Landscape' },
     { href: '#built-with-agents', label: 'Built' },
     { href: '#dashboards', label: 'Dashboards' },
     { href: '#socials', label: 'Socials' },
@@ -133,6 +135,8 @@ const App: React.FC = () => {
             <AiChronicles />
           </div>
         </section>
+
+        <AgenticLandscape />
 
         <section id="built-with-agents" className="mb-20">
           <Num n="04" label="Built with Agents" />
