@@ -19,6 +19,15 @@ export const ESSAYS: Essay[] = [
 
 export const PROTOTYPES: Prototype[] = [
   {
+    name: "Decaf",
+    tagline: "Reduce, don't quit",
+    description: "Caffeine de-addiction without the guilt: track every milligram, follow a taper plan, earn grace days, and graduate when the habit no longer runs the day.",
+    image: "/projects/decaf.png",
+    url: "https://cafdetox.vercel.app",
+    stack: ["mg tracking", "Taper plans", "Cloud sync + nudges"],
+    status: "Live"
+  },
+  {
     name: "Mailstorm",
     tagline: "The agent-first mailbox",
     description: "Your agent reads Gmail first and hands you obligations, not messages - a day shape each morning, the decisions only you can make, and a commitment graph of what you owe and what is owed to you.",
