@@ -1,0 +1,30 @@
+import { Article } from './chronicles';
+
+export const articles68: Article[] = [
+  {
+    title: 'The Corpse in the Config',
+    date: '2026-09-18',
+    week: 'Sep 18, 2026',
+    category: 'Building With Agents',
+    readTime: '6 min read',
+    excerpt: 'A Friday spent hunting why Cline could not see the gateway turned up four separate bugs, none of them the one we expected. In between: a panchang calendar shipped, an Etsy bundle locked, two essays live, and a free-credit run that said no more often than yes.',
+    tags: ['Building With Agents', 'Ship Log', 'MCP', 'Debugging', 'Panchang'],
+    body: [
+      'The technical spine of Friday was a single question: the Homework Gateway passed every self-test, so why could Cline not see its tools? The answer took the whole afternoon and turned out to be four different bugs in a trench coat. One: Cline’s settings GUI had squashed each argument list into a single string, so the launcher never received its client flag. Two: a red banner that looked like a gateway failure was actually a UTF-8 BOM that PowerShell had written into the settings file, choking Cline’s parser. Three: the gateway’s own config had the same invisible BOM, breaking Node’s JSON.parse. Four, the corpse: the config pointed the local server at a home directory that does not exist on this machine, so the child process died on birth and the all-or-nothing boot hid every healthy tool behind it.',
+      'Each bug got fixed at the source and pushed, not worked around: BOM-tolerant config loading, a corrected Windows root computation, a regenerated settings file verified byte by byte (7B-22-6D, not EF-BB-BF). The self-test passed again: read allowed, write denied before upstream, audit recorded. And the honest end-of-day state: Cline itself still was not green when the day closed, with the provider connection a separate suspect. Four bugs found and buried, the last wire still out. That is what integration actually looks like.',
+      'The product line moved anyway. The panchang calendar went live on the devotional app: running month with every tithi marked, a page-flip month animation, tap any day for rituals and mantra jaap, push reminders per tithi, over a hundred checks before handover. Then a restyle toward the festival-calendar look, and by evening the Etsy bundle was locked: month calendars plus a year poster as the core, ritual cards and trackers and a digital planner as extras the buyer can print or keep on screen, one 174-page preview file to judge it all, launch pricing set from real comparable listings. The full zip and the app restyle are staged for a post-midnight deploy window.',
+      'The free-credit sweep ran like a procurement exercise, not a shopping spree. Every provider’s terms got read before any signup: one claimed (a media-model platform with a genuinely useful free quota, API key straight to the vault), one skipped at the gate when "free credit" turned out to mean "add a card first," one abandoned when the math showed daily video generation would cost real money at any reseller rate, and one voice test that produced a winner, a regional voice that pronounced a client’s name correctly, then frozen on my call until revenue justifies it. The rule held all day: nothing accepted in my name without the clause that bites read first.',
+      'Writing kept cadence. The Friday Substack pair went live: the flagship on free knowledge and paid judgment, and the short on how a voice note becomes a product. Work-shaped output too: the onboarding tutor document gained ten real product screens in module order, the walkthrough video got its screen-tour segment an hour before the session, and a client-ready MMP integration response went out with placeholders where facts belonged instead of inventions. Wonderbyte shipped its fourteenth episode with four new vocab cards, Geetlekha drafted twenty and twenty-one, Bots At Brunch got its daily reel up after a late start it admitted to.',
+      'The day also had its corrections. A live API key got pasted into a chat window and had to be treated as burned: keys go in files, not chats, and the lesson cost one revocation. A "simple" agent install turned into a PATH lesson. And two pieces of launch hype got the honest treatment: an aggregator launch scored 6/10 with a note that these demos prove a new latency tier, not a new trust tier, and an "open-source alternative" turned out to be one person’s week-old reimplementation whose own best number argued against switching.',
+      'Underneath it all, the longer game got paperwork: a three-exam certification path sequenced for the next six months, a prep plan fitted around real calendar hours, and a skills roadmap that bets on reliability engineering, the discipline of evals, calibration and honest abstention, as the thing that stands out in this geography. The debugging afternoon was, accidentally, the perfect argument for exactly that bet.'
+    ],
+    takeaways: [
+      'Four separate bugs hid behind one symptom: GUI arg-squashing, two UTF-8 BOMs, and a wrong home path killing a child process. Fixed at source, verified byte by byte; the last Cline wire is honestly still out.',
+      'Panchang shipped to the devotional app with flip animation, tithi cards and reminders, and the Etsy bundle got locked: core calendars plus poster, extras print-or-digital, staged for a midnight deploy.',
+      'The free-credit run said no more than yes: one claim, one card-gate skip, one math-killed video plan, one voice test frozen until revenue justifies it. Terms first, always.',
+      'Cadence held: a Substack pair, a tutor doc with ten real screens, a client-ready MMP response, Wonderbyte EP14, two Geetlekha drafts, the daily reel.',
+      'Corrections are content too: a burned API key, a PATH lesson, and two hype checks that priced demos as latency, not trust.'
+    ],
+    note: 'Four bugs in a trench coat. The debugging afternoon argued better than any roadmap for why reliability engineering is the skill worth betting on.'
+  }
+];
