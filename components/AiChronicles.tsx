@@ -21,8 +21,9 @@ import { articles65 } from '../data/chronicles-65';
 import { articles66 } from '../data/chronicles-66';
 import { articles67 } from '../data/chronicles-67';
 import { articles68 } from '../data/chronicles-68';
+import { articles69 } from '../data/chronicles-69';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
@@ -196,7 +197,7 @@ const AiChronicles: React.FC = () => {
                 <div className="mono text-xs uppercase tracking-[0.25em] text-blue-300 mb-4">{selected.week} · {selected.date} · {selected.readTime}</div>
                 <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight leading-tight mb-6">{selected.title}</h2>
                 <div className="flex flex-wrap gap-2 mb-8">{selected.tags.map((tag) => <span key={tag} className="mono text-[11px] px-3 py-1 rounded-full bg-white/5 border border-white/10 text-neutral-300">{tag}</span>)}</div>
-                <div className="space-y-6 text-neutral-300 text-lg leading-8">{selected.body.map((paragraph) => paragraph.startsWith('## ') ? <h2 key={paragraph} className="text-2xl md:text-3xl font-extrabold tracking-tight text-white pt-4">{paragraph.slice(3)}</h2> : paragraph.startsWith('Source: http') ? <p key={paragraph}>Source: <a href={paragraph.slice(8)} target="_blank" rel="noreferrer" className="text-blue-300 underline underline-offset-4 break-all">{paragraph.slice(8)}</a></p> : <p key={paragraph}>{paragraph}</p>)}</div>
+                <div className="space-y-6 text-neutral-300 text-lg leading-8">{selected.body.map((paragraph) => paragraph.startsWith('## ') ? <h2 key={paragraph} className="text-2xl md:text-3xl font-extrabold tracking-tight text-white pt-4">{paragraph.slice(3)}</h2> : paragraph.startsWith('Source: http') ? <p key={paragraph}>Source: <a href={paragraph.slice(8)} target="_blank" rel="noreferrer" className="text-blue-300 underline underline-offset-4 break-all">{paragraph.slice(8)}</a></p> : paragraph.startsWith('IMG: ') ? (() => { const [src, ...cap] = paragraph.slice(5).split(' | '); return <figure key={paragraph} className="my-8"><img src={src} alt={cap.join(' | ')} className="w-full rounded-2xl border border-white/10" loading="lazy" />{cap.length > 0 && <figcaption className="mt-3 text-sm text-neutral-500">{cap.join(' | ')}</figcaption>}</figure>; })() : <p key={paragraph}>{paragraph}</p>)}</div>
                 {selected.takeaways.length > 0 && <div className="my-10 p-6 rounded-3xl bg-white/[0.04] border border-white/10"><h3 className="text-xl font-bold mb-4">Key takeaways</h3><ul className="space-y-3 text-neutral-300">{selected.takeaways.map((item) => <li key={item} className="flex gap-3"><span className="text-blue-400">→</span><span>{item}</span></li>)}</ul></div>}
                 {selected.note && <div className="p-6 rounded-3xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-400/20"><div className="mono text-xs uppercase tracking-[0.25em] text-blue-300 mb-3">Coffee with Ankit ☕</div><p className="text-xl md:text-2xl font-medium leading-snug text-white">{selected.note}</p></div>}
               </div>
