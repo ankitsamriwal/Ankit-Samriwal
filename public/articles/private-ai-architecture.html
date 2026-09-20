@@ -1,0 +1,147 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>The Private AI Box I Would Actually Put in Front of a Customer</title><meta name="description" content="A field guide to local models, typed outputs, vector search and deployment guardrails."><meta property="og:title" content="The Private AI Box I Would Actually Put in Front of a Customer"><meta property="og:description" content="A field guide to local models, typed outputs, vector search and deployment guardrails."><meta property="og:image" content="https://ankit-samriwal.vercel.app/articles/private-ai-reference-architecture-v2.png"><link rel="canonical" href="https://ankit-samriwal.vercel.app/articles/private-ai-architecture"><style>body{margin:0;background:#f5f1ed;color:#241f20;font:17px/1.72 system-ui,-apple-system,sans-serif}main{max-width:780px;margin:auto;background:#fff;padding:54px 46px 80px;box-sizing:border-box}a{color:#356f62}h1{font:700 clamp(36px,7vw,58px)/1.04 Georgia,serif;letter-spacing:-.03em;margin:0 0 18px}.dek{font-size:21px;line-height:1.45;color:#5b5556;margin:0 0 40px}.byline{font-size:14px;color:#777;margin-bottom:40px;border-top:1px solid #e8e4e2;padding-top:16px}h2{font:700 30px/1.2 Georgia,serif;margin:54px 0 18px}p{margin:0 0 22px}ul,ol{margin:0 0 26px;padding-left:25px}li{margin:8px 0}figure{margin:38px -80px 52px}figure img{display:block;width:100%;height:auto;border:1px solid #e7e2df}figcaption{font-size:13px;color:#777;margin-top:10px;padding:0 80px}.principle{font:700 24px/1.42 Georgia,serif;border-left:5px solid #73a89a;padding-left:20px;margin-top:45px}@media(max-width:900px){main{padding:38px 22px 60px}figure{margin:30px 0 42px}figcaption{padding:0}h2{font-size:27px}}</style></head><body><main><article><h1>The Private AI Box I Would Actually Put in Front of a Customer</h1><p class="dek">A 7-minute field guide to local models, typed outputs, vector search and guardrails that survive the move from demo to deployment</p><p class="byline">By Ankit Samriwal · September 2026</p><h2>A 7-minute field guide to local models, typed outputs, vector search and guardrails that survive the move from demo to deployment</h2>
+<p>Most AI architecture diagrams begin with the model.</p>
+<p>That is usually the wrong place to begin.</p>
+<p>The model is only one component in a working system. The harder questions sit around it: Who can reach the service? Where does customer data go? Which decisions may the model influence? What happens when its output is malformed? Can we trace the answer back to evidence? Can we restore the system after a failure?</p>
+<p>I wanted a reference architecture that answers those questions without requiring an enterprise cloud bill on day one.</p>
+<p>The result is a simple pattern: a controlled edge, one private compute plane, a local small language model, deterministic rules, typed outputs, retrieval, observability and a tested recovery path.</p>
+<figure><img src="/articles/private-ai-reference-architecture-v2.png" alt="Private AI service platform reference architecture"><figcaption>Private AI service platform: local intelligence, typed decisions and auditable controls.</figcaption></figure><h2>Start with the boundary, not the model</h2>
+<p>Users may arrive through a messaging channel, a web interface, a mobile app or an operator console. Those channels should not connect directly to the model or the database.</p>
+<p>They first meet an experience layer, then a controlled edge. The edge handles DNS, authentication, access policy, rate limits, bot controls and routing. A secure tunnel is the only application path into the private compute plane.</p>
+<p>That gives the design its first useful property: the application server does not need open public ports for its database, vector store, model server or integration tools.</p>
+<p>The private box remains private.</p>
+<p>This is a stronger starting point than deploying five public services and trying to add security after the demo works.</p>
+<h2>One private compute plane</h2>
+<p>The central unit is a Linux virtual server running isolated containers. It contains five distinct responsibilities:</p>
+<ul>
+<li>an API gateway for authentication and routing</li>
+<li>an integration layer built around typed tools</li>
+<li>a deterministic rules engine</li>
+<li>a local quantised small language model</li>
+<li>a data plane with relational and semantic storage.</li>
+</ul>
+<p>The separation matters. A model should not have direct write access to transactional data. An integration tool should not receive a blanket filesystem permission. A frontend should not know a database credential. Each component gets its own identity and the smallest useful set of permissions.</p>
+<p>For an early build, this can run on one server. That is an economic choice, not an excuse to collapse the boundaries. Separate containers, networks, credentials, logs and release versions still matter.</p>
+<h2>Rules decide what is non-negotiable</h2>
+<p>The most important line in the diagram is not a network arrow. It is the line between the rules engine and the model.</p>
+<p>Hard requirements belong in deterministic code.</p>
+<p>If a policy says an input is ineligible, a model cannot talk its way around it. If a compliance check must always run, it should not depend on a probabilistic answer. If a threshold is fixed, it remains a threshold.</p>
+<p>The small model is useful for bounded judgement:</p>
+<ul>
+<li>classification</li>
+<li>extraction</li>
+<li>ranking</li>
+<li>summarisation</li>
+<li>matching a question to the right evidence</li>
+<li>proposing a next step.</li>
+</ul>
+<p>This hybrid design is less theatrical than asking one large model to do everything. It is also easier to test, explain and trust.</p>
+<h2>Typed output is the contract</h2>
+<p>A model response is untrusted input.</p>
+<p>Before an application uses it, the response should cross a typed boundary. The schema defines required fields, allowed values, ranges, citations, error states and the actions the receiving application may take.</p>
+<p>A valid result might contain:</p>
+<ul>
+<li>the task category</li>
+<li>the recommended decision class</li>
+<li>the evidence identifiers used</li>
+<li>a confidence value</li>
+<li>a reason code</li>
+<li>an explicit next action.</li>
+</ul>
+<p>Malformed output does not flow downstream. It is rejected. A recoverable formatting error may be retried within a limit. An unsupported or low-confidence case should abstain or move to human review.</p>
+<p>This sounds like ordinary software engineering because it is. AI does not remove the need for contracts between services. It increases it.</p>
+<h2>Retrieval needs receipts</h2>
+<p>A vector database makes local knowledge searchable. It does not make the result true.</p>
+<p>The data layer therefore keeps two different jobs visible:</p>
+<ul>
+<li>a relational store for users, events, decisions, metadata and smaller vector indexes</li>
+<li>a dedicated vector store for larger semantic collections and filtered retrieval.</li>
+</ul>
+<p>Every retrieved item should preserve its source ID, chunk ID and relevant metadata. Tenant or application filters must be applied to every query, not added as a user-interface convention.</p>
+<p>Important answers should carry evidence. Retrieved text must also be treated as untrusted content. A document can supply facts. It cannot rewrite system policy, grant a tool permission or instruct the platform to ignore its rules.</p>
+<p>The point of retrieval is not merely to make the answer sound informed. It is to make the answer inspectable.</p>
+<h2>The integration layer is a control point</h2>
+<p>A common tool protocol can make applications easier to connect. It can also turn one weak permission into a large attack surface.</p>
+<p>The integration gateway should therefore enforce four things:</p>
+<ol>
+<li>Only approved servers and tools are available.</li>
+<li>Every tool has a typed argument schema.</li>
+<li>Execution time, output size and retries are capped.</li>
+<li>The audit event records the caller, tool, purpose and result status.</li>
+</ol>
+<p>Arbitrary shell access and unrestricted filesystem access do not belong in the default toolset. Credentials are scoped per service. A tool request inherits the identity and policy context of the original call.</p>
+<p>Integration speed is useful only when authority remains clear.</p>
+<h2>Observability must include model quality</h2>
+<p>Traditional service metrics are still necessary:</p>
+<ul>
+<li>request volume and success rate</li>
+<li>p50 and p95 latency</li>
+<li>CPU, memory, disk and I/O</li>
+<li>container restarts</li>
+<li>database connections</li>
+<li>queue depth</li>
+<li>backup age.</li>
+</ul>
+<p>An AI service needs another set:</p>
+<ul>
+<li>model, prompt and schema version</li>
+<li>schema rejection rate</li>
+<li>abstention rate</li>
+<li>retrieval quality</li>
+<li>rule/model disagreement</li>
+<li>evaluation-set result</li>
+<li>operator override rate.</li>
+</ul>
+<p>Logs should use request IDs and redacted fields. Raw confidential prompts and documents should not become a second uncontrolled data store inside the logging system.</p>
+<p>The target is not to record everything. It is to preserve enough evidence to explain failure and manage change.</p>
+<h2>Security is a rail across every layer</h2>
+<p>Security is not a box at the bottom of the architecture. It runs down the side because it applies everywhere.</p>
+<p>The minimum useful baseline is straightforward:</p>
+<ul>
+<li>multi-factor authentication for operators</li>
+<li>separate service identities</li>
+<li>default-deny firewall rules</li>
+<li>no public database, model or tool ports</li>
+<li>secrets outside source control</li>
+<li>encrypted backups</li>
+<li>tenant-aware data access</li>
+<li>pinned container images and dependency scans</li>
+<li>a software bill of materials</li>
+<li>a documented rollback path</li>
+<li>adversarial tests for prompt injection and tool misuse.</li>
+</ul>
+<p>The model-specific guardrail is equally simple: rules remain authoritative, typed validation is mandatory, evidence is attached where it matters, and uncertainty has an abstention path.</p>
+<h2>Free tier first, but not free of discipline</h2>
+<p>The early economics are attractive.</p>
+<p>A static frontend, secure tunnel, access controls and modest object storage can begin on free allowances, subject to each provider's current terms. The databases, integration gateway and local inference software can be self-hosted without licence cost.</p>
+<p>The paid component is usually the server.</p>
+<p>As a planning range in September 2026, a light prototype class begins around $6.49 a month. An 8 GB class is around $9.99, and a 16 GB class around $18.49, before VAT, IPv4 and support. These are reference prices, not a production sizing promise.</p>
+<p>The correct progression is:</p>
+<ul>
+<li>use free edge and storage allowances while demand is unproven</li>
+<li>use a light server for synthetic or low-volume work</li>
+<li>move to 8 GB for one vector or model workload</li>
+<li>use 16 GB when several applications share the database, vector store and inference service</li>
+<li>consider managed services when recurring revenue or operational risk justifies them.</li>
+</ul>
+<p>Free tier first does not mean production claims on prototype infrastructure. Reliability, recovery, support and provider limits still need an owner.</p>
+<h2>The deployment gate</h2>
+<p>Before external users arrive, I would require evidence for ten questions:</p>
+<ol>
+<li>Is the data boundary approved?</li>
+<li>Does an external scan show no public database, model or tool port?</li>
+<li>Does every identity have an owner and revocation path?</li>
+<li>Have cross-tenant access and tool abuse been tested?</li>
+<li>Do deterministic rules win every designed conflict?</li>
+<li>Can invalid model output reach an action? The answer must be no.</li>
+<li>Does the locked evaluation set pass for the exact deployed version?</li>
+<li>Has an encrypted backup been restored into a clean environment?</li>
+<li>Do alerts reach a named operator?</li>
+<li>Has rollback been exercised rather than described?</li>
+</ol>
+<p>A demo proves that a path can work. This gate begins to prove that the system can fail safely.</p>
+<h2>What this architecture is really for</h2>
+<p>The attraction of a local small model is not that it replaces every large model.</p>
+<p>It gives the system a cheap, fast and private judgement layer for narrow work. Deterministic rules handle what must not vary. Retrieval supplies evidence. Typed output makes the response usable. Human review remains available where consequence or uncertainty demands it.</p>
+<p>That combination is more useful than a bigger model inside a weaker system.</p>
+<p>The one-line design principle is this:</p>
+<p class="principle"><strong>Keep the box private, keep the data local, keep rules authoritative, and validate every model output before use.</strong></p></article></main></body></html>
