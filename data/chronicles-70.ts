@@ -6,8 +6,8 @@ export const articles70: Article[] = [
     date: '2026-09-20',
     week: 'Sep 20, 2026',
     category: 'Building With Agents',
-    readTime: '6 min read',
-    excerpt: 'A Sunday where the decision layer got its first production job: the what-to-watch app now merges TMDB and Rotten Tomatoes into one Jev-scored verdict. Around it: a notebook rescue, a four-pack of skillbox pilots, the first Medium import, and one standing rule about tunnels that will save real money.',
+    readTime: '7 min read',
+    excerpt: 'A Sunday where the decision layer got its first production job: the what-to-watch app now merges TMDB and Rotten Tomatoes into one Jev-scored verdict. Around it: a notebook rescue, a four-pack of skillbox pilots, the first Medium import, one standing rule about tunnels - and the whole free-tier-first stack drawn as a proper reference architecture, twice.',
     tags: ['Building With Agents', 'Jev', 'Ship Log', 'Indie Projects', 'Ratings'],
     body: [
       'Yesterday the decision layer went into everything. Today it got its first real production job, and the job is judging movies. The what-to-watch app no longer shows you a platform score and wishes you luck: every card now carries one consolidated rating. TMDB and Rotten Tomatoes get pulled behind the scenes, Jev reads both, weighs them, and returns a single 0-10. Verified live on Oppenheimer: TMDB says 8.1, RT says 9.3, the card says 8.7. That is the whole idea in one line - not another recommendation algorithm, but a critic that reads all the other critics first.',
@@ -19,6 +19,8 @@ export const articles70: Article[] = [
       'The Medium backlog started moving too. First import went in clean - original Sep 4 date preserved, canonical link back to Substack, diagram intact. Then the platform\u2019s human-check wall came back on number two, and the honest answer to a wall is not a battering ram. His call, and the right one: slow trickle, one per day. Seventeen articles will take seventeen days. Fine. They waited months; they can wait weeks.',
       'The honest paragraph, because this series keeps one: this evening I asked the mirror question - why do all my builds stop at personal use? The answer is not ideation; a dozen shipped apps say the idea muscle works. Personal apps are safe because I am the customer and nobody can say no. The gap to D2C and enterprise is distribution, and distribution is a skill I have not trained yet. Naming it in public is the first rep.',
       'The evening ended in infrastructure math: what a vector database would actually cost across the indie projects, free-tier sharding to stay at zero during pilots, and a proper box at roughly AED 37 a month when the pilots earn it. Nothing shipped there tonight - but the cost-versus-return sheet exists now, and next week\u2019s decisions get made with numbers instead of vibes.',
+      'The night closed with the drawing. All week the stack had been accumulating in pieces - Vercel frontends, a Cloudflare edge, one honest VPS, Postgres with pgvector, Qdrant, the typed decision layer, MCP between the apps and the services - and tonight it became one picture: a reference architecture in the Google/AWS style, eight numbered layers from channels and users down through experience, edge, the private compute plane, data and observability, with security as a rail down the side. With it came a four-page deployment guide: operating principles, a fifteen-step sequence from empty box to running platform, guardrails for the model and MCP layers, production-readiness gates, and the free-tier-first cost table with real numbers. The same material is being adapted for Substack and Medium.',
+      'The first version came back with notes, and the notes were right: text overlaps, arrows pointing at the wrong boxes, generic icons. The instruction was to fix the arrows, use the actual OEM marks, and make it IBM or Tesla level. Version two is a rebuild, not a patch - real WhatsApp, Vercel, Cloudflare, Docker, Postgres, Qdrant and Grafana marks, an IBM-style grid, every arrow with exactly one direction, nothing overlapping. The lesson is the same one the code keeps teaching: the first render is a draft, and the standard you hold the picture to is the standard the system gets built to.',
       'And the content line held: Bots At Brunch day fourteen shipped, Wonderbyte episode sixteen went out with four vocab cards, and two more Geetlekha tracks are banked. The image backend behind the daily videos died overnight, so backdrops now come from free stock photos - same look, zero cost, one less dependency.'
     ],
     takeaways: [
@@ -26,7 +28,8 @@ export const articles70: Article[] = [
       'A standing rule was born: prototypes ask tunnel or Vercel, and the audience decides. Just me means a Cloudflare quick tunnel; anyone else testing means Vercel.',
       'The Colab notebook rescue was the unglamorous win of the day: private-repo-safe data, pinned packages, and no sixteen-minute surprise in the run-all path.',
       'NanoJev is a research base, not a drop-in scorer - so the Oct 1 bid-scorer pilot runs it advisory-only, behind hard gates, on synthetic cases.',
-      'Medium imports go one per day by choice. The platform\u2019s wall set the pace; pretending otherwise risks the account.'
+      'Medium imports go one per day by choice. The platform\u2019s wall set the pace; pretending otherwise risks the account.',
+      'The whole free-tier-first stack now exists as a reference architecture - eight layers from channels to observability, with a fifteen-step deployment guide - rebuilt to an IBM-grid standard with real OEM marks after version one got sent back.'
     ],
     note: 'The decision layer stopped being an experiment today. It has a job.'
   }
