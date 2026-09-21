@@ -23,8 +23,9 @@ import { articles67 } from '../data/chronicles-67';
 import { articles68 } from '../data/chronicles-68';
 import { articles69 } from '../data/chronicles-69';
 import { articles70 } from '../data/chronicles-70';
+import { articles71 } from '../data/chronicles-71';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70, ...articles71];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
