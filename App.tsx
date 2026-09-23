@@ -216,11 +216,13 @@ const App: React.FC = () => {
 
         <footer className="mt-20 pt-10 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
           <p>© {new Date().getFullYear()} Ankit Samriwal. Built with React.</p>
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             <a href="#writing" className="hover:text-white transition-colors">Writing</a>
             <a href="https://x.com/ankitsamriwal" className="hover:text-white transition-colors">Twitter</a>
             <a href="https://www.linkedin.com/in/ankitsamriwal" className="hover:text-white transition-colors">LinkedIn</a>
             <a href="https://github.com/ankitsamriwal" className="hover:text-white transition-colors">GitHub</a>
+            <a href="https://medium.com/@ankitsamriwal" className="hover:text-white transition-colors">Medium</a>
+            <a href="https://huggingface.co/Ankit1106" className="hover:text-white transition-colors">Hugging Face</a>
           </div>
         </footer>
       </main>
