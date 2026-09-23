@@ -133,5 +133,15 @@ export const SOCIAL_LINKS: SocialLink[] = [
     platform: "Substack",
     url: "https://ankitsamriwal.substack.com/",
     icon: "M3 5h18v2H3V5zm0 4h18v2H3V9zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4 9-5 9 5v2H3v-2z"
+  },
+  {
+    platform: "Medium",
+    url: "https://medium.com/@ankitsamriwal",
+    icon: "M2 5.5h5.2l5.15 11.3L17.02 5.5H22v1.1l-1.22.96a.7.7 0 0 0-.27.68v7.52a.7.7 0 0 0 .27.68l1.19.96v1.1h-6v-1.1l1.23-.99c.12-.12.12-.16.12-.35V7.98L12.05 18.5h-.92L5 8.02v7.04c-.03.36.09.71.34.96l1.6 1.38v1.1H2.4v-1.1L4 16.02c.24-.25.35-.6.3-.96V7.95a1.05 1.05 0 0 0-.3-.79L2 5.5z"
+  },
+  {
+    platform: "Hugging Face",
+    url: "https://huggingface.co/Ankit1106",
+    icon: "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM8.3 8.4a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm7.4 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zM6.8 13h10.4c-.45 3-2.4 5-5.2 5s-4.75-2-5.2-5z"
   }
 ];
