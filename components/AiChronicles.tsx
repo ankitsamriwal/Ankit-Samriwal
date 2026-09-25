@@ -25,8 +25,11 @@ import { articles69 } from '../data/chronicles-69';
 import { articles70 } from '../data/chronicles-70';
 import { articles71 } from '../data/chronicles-71';
 import { articles72 } from '../data/chronicles-72';
+import { articles73 } from '../data/chronicles-73';
+import { articles74 } from '../data/chronicles-74';
+import { articles75 } from '../data/chronicles-75';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70, ...articles71, ...articles72];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70, ...articles71, ...articles72, ...articles73, ...articles74, ...articles75];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
