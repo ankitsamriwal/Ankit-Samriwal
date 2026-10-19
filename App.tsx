@@ -6,6 +6,7 @@ import Diagnostic, { DiagnosticResult } from './components/Diagnostic';
 import Briefing from './components/Briefing';
 import { SOCIAL_LINKS, ESSAYS, SUBSTACK_URL } from './constants';
 import { OFFERS, CASE_FILES, PROOF, CERTS, LAB } from './advisory';
+import { Chip, CertBadge, LineIcon, BrandIcon, PLATFORMS } from './components/Logos';
 
 const Label: React.FC<{ n: string; children: React.ReactNode; dark?: boolean }> = ({ n, children, dark }) => (
   <div className="flex items-center gap-4 mb-10">
@@ -68,6 +69,9 @@ const App: React.FC = () => {
             <a href="#briefing" className="px-7 py-4 bg-ink text-ivory font-semibold hover:bg-oxblood transition-colors">Book a briefing</a>
             <a href="#diagnostic" className="px-7 py-4 border border-ink hover:bg-ink hover:text-ivory transition-colors">Take the 3-minute diagnostic</a>
           </div>
+          <div className="mt-12 grid sm:grid-cols-3 gap-3 max-w-3xl">
+            {CERTS.slice(0, 3).map((c) => <CertBadge key={c.name} c={c} />)}
+          </div>
         </section>
 
         {/* 2. Proof strip */}
@@ -85,6 +89,13 @@ const App: React.FC = () => {
           </div>
         </section>
 
+        <section className="max-w-5xl mx-auto px-4 md:px-6 pt-16">
+          <div className="mono text-[11px] uppercase tracking-[0.25em] text-stone mb-5">Platforms I design and deliver on</div>
+          <div className="flex flex-wrap gap-2">
+            {PLATFORMS.map((t) => <Chip key={t.label} t={t} />)}
+          </div>
+        </section>
+
         {/* 3. Engagements */}
         <section id="offers" className="max-w-5xl mx-auto px-4 md:px-6 py-24">
           <Label n="01">Engagements</Label>
@@ -92,7 +103,10 @@ const App: React.FC = () => {
           <div className="grid md:grid-cols-3 gap-px bg-rule border border-rule">
             {OFFERS.map((o) => (
               <article key={o.name} className="bg-ivory p-7 md:p-8 flex flex-col">
-                <div className="font-display text-oxblood text-2xl mb-6">{o.code}</div>
+                <div className="flex items-center justify-between mb-6">
+                  <span className="font-display text-oxblood text-2xl">{o.code}</span>
+                  <LineIcon name={o.icon} className="w-7 h-7 text-ink" />
+                </div>
                 <h3 className="font-display text-2xl leading-snug mb-2">{o.name}</h3>
                 <div className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-6">{o.format}</div>
                 <p className="text-sm text-stone mb-4"><span className="text-ink font-semibold">For: </span>{o.forWho}</p>
@@ -100,6 +114,7 @@ const App: React.FC = () => {
                 <ul className="text-sm text-stone space-y-2 mb-8 flex-1">
                   {o.includes.map((x) => <li key={x} className="pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-rule">{x}</li>)}
                 </ul>
+                <div className="flex flex-wrap gap-1.5 mb-6">{o.stack.map((t) => <Chip key={t.label} t={t} />)}</div>
                 <div className="pt-5 border-t border-rule">
                   <div className="text-sm font-semibold mb-3">{o.fromPrice || 'Fixed fee, scoped after a briefing'}</div>
                   <a href="#briefing" className="text-sm underline underline-offset-4 hover:text-oxblood">Enquire →</a>
@@ -119,7 +134,10 @@ const App: React.FC = () => {
               {CASE_FILES.map((c) => (
                 <article key={c.no} className="bg-ivory p-7 md:p-10 grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
                   <div>
-                    <div className="mono text-xs text-oxblood mb-2">File {c.no}</div>
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="w-10 h-10 grid place-items-center border border-rule bg-paper"><LineIcon name={c.icon} className="w-5 h-5" /></span>
+                      <span className="mono text-xs text-oxblood">File {c.no}</span>
+                    </div>
                     <div className="font-display text-xl mb-1">{c.sector}</div>
                     <div className="text-sm text-stone mb-3">{c.client}</div>
                     <span className="inline-block mono text-[10px] uppercase tracking-[0.18em] border border-rule px-2 py-1">{c.stage}</span>
@@ -128,6 +146,7 @@ const App: React.FC = () => {
                     <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Problem</dt><dd>{c.problem}</dd></div>
                     <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Approach</dt><dd>{c.approach}</dd></div>
                     <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Result</dt><dd>{c.result}</dd></div>
+                    <div className="sm:col-span-3 flex flex-wrap gap-1.5 pt-2">{c.stack.map((t) => <Chip key={t.label} t={t} />)}</div>
                   </dl>
                 </article>
               ))}
@@ -151,7 +170,7 @@ const App: React.FC = () => {
               <div>
                 <h2 className="font-display text-4xl md:text-5xl leading-tight mb-5">Thinking in public.</h2>
                 <p className="text-stone leading-relaxed mb-6">Essays on the agentic shift, and a weekly build log that has run for more than 80 issues. It's the best way to see how I think before we talk.</p>
-                <a href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer" className="text-sm underline underline-offset-4 hover:text-oxblood">All essays on Substack →</a>
+                <a href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm underline underline-offset-4 hover:text-oxblood"><BrandIcon id="substack" />All essays on Substack →</a>
               </div>
               <div className="divide-y divide-rule border-y border-rule">
                 {ESSAYS.map((e) => (
@@ -183,7 +202,8 @@ const App: React.FC = () => {
                 {LAB.map((l) => (
                   <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" className="block border border-white/10 p-6 hover:border-brass transition-colors">
                     <h3 className="font-display text-2xl mb-2">{l.name}</h3>
-                    <p className="text-sm text-neutral-400 leading-relaxed">{l.line}</p>
+                    <p className="text-sm text-neutral-400 leading-relaxed mb-4">{l.line}</p>
+                    <div className="flex flex-wrap gap-1.5">{l.stack.map((t) => <Chip key={t.label} t={t} dark />)}</div>
                   </a>
                 ))}
               </div>
@@ -199,8 +219,8 @@ const App: React.FC = () => {
             <div>
               <h2 className="font-display text-4xl md:text-5xl leading-tight mb-5">A 30-minute briefing, no pitch.</h2>
               <p className="text-stone leading-relaxed mb-8">Tell me what you're trying to solve. If I'm not the right person, I'll say so and point you to someone who is.</p>
-              <div className="text-xs text-stone mono uppercase tracking-[0.15em] leading-loose">
-                {CERTS.map((c) => <div key={c}>{c}</div>)}
+              <div className="grid gap-2">
+                {CERTS.map((c) => <CertBadge key={c.name} c={c} />)}
               </div>
             </div>
             <Briefing diagnostic={diagnostic} />
@@ -212,7 +232,12 @@ const App: React.FC = () => {
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between text-sm text-stone">
           <p>© {new Date().getFullYear()} Ankit Samriwal · Dubai</p>
           <div className="flex flex-wrap gap-5">
-            {SOCIAL_LINKS.map((s) => <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-ink">{s.platform}</a>)}
+            {SOCIAL_LINKS.map((s) => (
+              <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.platform} className="inline-flex items-center gap-2 hover:text-ink">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d={s.icon} /></svg>
+                <span className="hidden sm:inline">{s.platform}</span>
+              </a>
+            ))}
           </div>
         </div>
       </footer>
