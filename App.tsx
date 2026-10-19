@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import TechCarousel from './components/TechCarousel';
 import AiChronicles from './components/AiChronicles';
-import Dashboards from './components/Dashboards';
 import AgenticLandscape from './components/AgenticLandscape';
 import ContentChat from './components/ContentChat';
 import { SOCIAL_LINKS, ESSAYS, PROTOTYPES, SUBSTACK_URL } from './constants';
@@ -34,7 +33,6 @@ const App: React.FC = () => {
     { href: '#chronicles', label: 'Chronicles' },
     { href: '#agentic-landscape', label: 'Landscape' },
     { href: '#built-with-agents', label: 'Built' },
-    { href: '#dashboards', label: 'Dashboards' },
     { href: '#credentials', label: 'Credentials' },
     { href: '#socials', label: 'Socials' },
     { href: '#contact', label: 'Contact' },
@@ -186,13 +184,10 @@ const App: React.FC = () => {
           </div>
         </section>
 
-        <section id="dashboards" className="mb-20">
-          <Num n="05" label="Executive Dashboards" />
-          <Dashboards />
-        </section>
+
 
         <section id="credentials" className="mb-20">
-          <Num n="06" label="Credentials" />
+          <Num n="05" label="Credentials" />
           <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-2xl mb-10 -mt-4">Microsoft Project Ready assessments, rated PROFICIENT across agentic AI, organizational intelligence, and data agents.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {CREDENTIALS.map((cred, i) => (
@@ -219,7 +214,7 @@ const App: React.FC = () => {
         </section>
 
         <section id="socials" className="mb-20">
-          <Num n="07" label="Connect" />
+          <Num n="06" label="Connect" />
           <div className="glass rounded-[2rem] p-4 md:p-6 divide-y divide-neutral-800/80">
             {SOCIAL_LINKS.map((link) => (
               <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-4 py-5 group hover:bg-white/[0.02] rounded-xl transition-all">
