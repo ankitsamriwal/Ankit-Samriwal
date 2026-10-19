@@ -1,262 +1,221 @@
-import React, { useEffect, useState } from 'react';
-import TechCarousel from './components/TechCarousel';
+import React, { useState } from 'react';
 import AiChronicles from './components/AiChronicles';
 import AgenticLandscape from './components/AgenticLandscape';
 import ContentChat from './components/ContentChat';
-import { SOCIAL_LINKS, ESSAYS, PROTOTYPES, SUBSTACK_URL } from './constants';
+import Diagnostic, { DiagnosticResult } from './components/Diagnostic';
+import Briefing from './components/Briefing';
+import { SOCIAL_LINKS, ESSAYS, SUBSTACK_URL } from './constants';
+import { OFFERS, CASE_FILES, PROOF, CERTS, LAB } from './advisory';
 
-const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
+const Label: React.FC<{ n: string; children: React.ReactNode; dark?: boolean }> = ({ n, children, dark }) => (
   <div className="flex items-center gap-4 mb-10">
-    <span className="mono text-xs text-orange-300/90">{n}</span>
-    <span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-500">{label}</span>
-    <div className="h-[1px] flex-1 bg-neutral-800"></div>
+    <span className={`mono text-xs ${dark ? 'text-brass' : 'text-oxblood'}`}>{n}</span>
+    <span className={`mono text-[11px] uppercase tracking-[0.25em] ${dark ? 'text-neutral-400' : 'text-stone'}`}>{children}</span>
+    <div className={`h-px flex-1 ${dark ? 'bg-white/10' : 'bg-rule'}`} />
   </div>
 );
 
-const CREDENTIALS: { title: string; year?: string }[] = [
-  { title: 'Implement Agent 365 to observe, govern, and secure AI Apps, Copilot & Agents' },
-  { title: 'Activate Organizational Intelligence with Microsoft IQ' },
-  { title: 'Implement Agentic AI', year: '2026' },
-  { title: 'Build Frontier Firm Work IQ', year: '2026' },
-  { title: 'Microsoft Fabric: Fabric IQ + Data Agents' },
+const NAV = [
+  { href: '#offers', label: 'Engagements' },
+  { href: '#cases', label: 'Case files' },
+  { href: '#diagnostic', label: 'Diagnostic' },
+  { href: '#writing', label: 'Writing' },
+  { href: '#archive', label: 'Archive' },
 ];
 
 const App: React.FC = () => {
-  const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  useEffect(() => { setMounted(true); }, []);
-  if (!mounted) return null;
+  const [diagnostic, setDiagnostic] = useState<DiagnosticResult | null>(null);
 
-  const navLinks = [
-    { href: '#about', label: 'About' },
-    { href: '#writing', label: 'Writing' },
-    { href: '#chronicles', label: 'Chronicles' },
-    { href: '#agentic-landscape', label: 'Landscape' },
-    { href: '#built-with-agents', label: 'Built' },
-    { href: '#credentials', label: 'Credentials' },
-    { href: '#socials', label: 'Socials' },
-    { href: '#contact', label: 'Contact' },
-  ];
+  const discuss = (r: DiagnosticResult) => {
+    setDiagnostic(r);
+    document.getElementById('briefing')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="min-h-screen bg-[#050505] selection:bg-orange-300 selection:text-black">
-      <nav className="fixed top-0 left-0 w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-3xl mx-auto px-6 h-16 flex items-center justify-between">
-          <a href="#top" className="text-lg font-bold tracking-tight">Ankit.</a>
-          <div className="ml-auto flex items-center gap-3">
-            <a href="https://ankitsamriwal.substack.com/subscribe" target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-full bg-orange-300 text-black hover:bg-white transition-colors text-xs font-extrabold whitespace-nowrap">Subscribe</a>
-            <div className="hidden md:flex gap-5 text-xs font-medium text-neutral-400">
-              {navLinks.map((l) => (
-                <a key={l.href} href={l.href} className="hover:text-white transition-colors whitespace-nowrap">{l.label}</a>
-              ))}
-            </div>
+    <div className="min-h-screen bg-ivory text-ink selection:bg-ink selection:text-ivory">
+      <nav className="fixed top-0 left-0 w-full z-50 bg-ivory/90 backdrop-blur border-b border-rule">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+          <a href="#top" className="font-display text-xl">Ankit Samriwal</a>
+          <div className="hidden md:flex items-center gap-7 text-sm text-stone">
+            {NAV.map((l) => <a key={l.href} href={l.href} className="hover:text-ink transition-colors">{l.label}</a>)}
+            <a href="#briefing" className="px-4 py-2 bg-ink text-ivory hover:bg-oxblood transition-colors font-semibold">Book a briefing</a>
           </div>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
-            className="md:hidden flex flex-col justify-center gap-[5px] w-9 h-9 rounded-lg border border-white/10 px-2"
-          >
-            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? 'translate-y-[6.5px] rotate-45' : ''}`}></span>
-            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`block h-[1.5px] w-full bg-neutral-300 transition-all ${menuOpen ? '-translate-y-[6.5px] -rotate-45' : ''}`}></span>
+          <button onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} className="md:hidden text-sm mono uppercase tracking-[0.2em]">
+            {menuOpen ? 'Close' : 'Menu'}
           </button>
         </div>
         {menuOpen && (
-          <div className="md:hidden border-t border-white/5 bg-[#050505]/95 backdrop-blur-md">
-            <div className="max-w-3xl mx-auto px-6 py-4 flex flex-col">
-              {navLinks.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="py-3 text-sm font-medium text-neutral-400 hover:text-white transition-colors border-b border-white/5 last:border-0">{l.label}</a>
-              ))}
-            </div>
+          <div className="md:hidden border-t border-rule bg-ivory px-4 py-2 flex flex-col">
+            {[...NAV, { href: '#briefing', label: 'Book a briefing' }].map((l) => (
+              <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)} className="py-3 border-b border-rule last:border-0">{l.label}</a>
+            ))}
           </div>
         )}
       </nav>
 
-      <main id="top" className="max-w-3xl mx-auto px-6 pt-36 pb-24">
-
-        <section className="text-center mb-28">
-          <div className="mono text-xs uppercase tracking-[0.3em] text-orange-300/90 mb-8">Programme Director · Enterprise AI · Agentic Systems</div>
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] mb-8">
-            Digital Transformation Leader documenting the <span className="text-orange-300">AI shift.</span>
+      <main id="top">
+        {/* 1. Hero */}
+        <section className="max-w-5xl mx-auto px-4 md:px-6 pt-36 md:pt-44 pb-20">
+          <div className="mono text-[11px] uppercase tracking-[0.3em] text-oxblood mb-8">Agentic AI advisory · Regulated & sovereign environments</div>
+          <h1 className="font-display text-[2.6rem] leading-[1.05] md:text-7xl md:leading-[1.02] max-w-4xl mb-8">
+            Agentic AI for institutions that can't afford to get it wrong.
           </h1>
-          <p className="text-lg text-neutral-400 leading-relaxed max-w-xl mx-auto mb-4">
-            Hi, I'm <span className="text-white font-medium">Ankit Samriwal</span>. I work at the intersection of enterprise delivery, AI adoption, programme governance, and modern digital products.
+          <p className="text-lg md:text-xl text-stone leading-relaxed max-w-2xl mb-10">
+            I design and deliver AI and enterprise platforms inside government, banking, defence and other regulated estates, where data can't leave the building and every agent action needs an owner. 21 years of doing this work, not watching it.
           </p>
-          <p className="text-sm text-neutral-500 leading-relaxed max-w-xl mx-auto mb-10">
-            Agentic AI and the enterprise, written by someone who builds and sells these systems for a living. 21+ years in enterprise software.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a href="#writing" className="px-6 py-3 rounded-full bg-white text-black hover:bg-neutral-200 transition-all text-sm font-bold">Read the Essays</a>
-            <a href="#built-with-agents" className="px-6 py-3 rounded-full border border-white/10 hover:bg-white/5 transition-all text-sm font-medium">See the Builds</a>
+          <div className="flex flex-wrap gap-3">
+            <a href="#briefing" className="px-7 py-4 bg-ink text-ivory font-semibold hover:bg-oxblood transition-colors">Book a briefing</a>
+            <a href="#diagnostic" className="px-7 py-4 border border-ink hover:bg-ink hover:text-ivory transition-colors">Take the 3-minute diagnostic</a>
           </div>
-          <div className="mt-8 flex flex-wrap gap-3 justify-center">
-            {SOCIAL_LINKS.map((link) => (
-              <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-neutral-400 hover:text-white hover:border-orange-300/60 transition-all text-xs font-medium">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d={link.icon} /></svg>
-                {link.platform}
-              </a>
+        </section>
+
+        {/* 2. Proof strip */}
+        <section className="border-y border-rule">
+          <div className="max-w-5xl mx-auto px-4 md:px-6 grid grid-cols-2 md:grid-cols-4">
+            {PROOF.map((p, i) => (
+              <div key={p.label} className={`py-8 md:py-10 ${i % 2 === 1 ? 'pl-6 border-l border-rule' : ''} ${i >= 2 ? 'border-t md:border-t-0 border-rule' : ''} ${i === 2 ? 'md:pl-6 md:border-l' : ''}`}>
+                <div className="font-display text-3xl md:text-4xl mb-1">{p.figure}</div>
+                <div className="text-sm text-stone">{p.label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="max-w-5xl mx-auto px-4 md:px-6 py-4 border-t border-rule text-xs text-stone mono uppercase tracking-[0.15em] leading-relaxed">
+            Government · Financial services · Insurance · Healthcare · Transport & logistics · Media
+          </div>
+        </section>
+
+        {/* 3. Engagements */}
+        <section id="offers" className="max-w-5xl mx-auto px-4 md:px-6 py-24">
+          <Label n="01">Engagements</Label>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight max-w-3xl mb-14">Three ways to work together. Each one has a fixed scope and a named outcome.</h2>
+          <div className="grid md:grid-cols-3 gap-px bg-rule border border-rule">
+            {OFFERS.map((o) => (
+              <article key={o.name} className="bg-ivory p-7 md:p-8 flex flex-col">
+                <div className="font-display text-oxblood text-2xl mb-6">{o.code}</div>
+                <h3 className="font-display text-2xl leading-snug mb-2">{o.name}</h3>
+                <div className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-6">{o.format}</div>
+                <p className="text-sm text-stone mb-4"><span className="text-ink font-semibold">For: </span>{o.forWho}</p>
+                <p className="text-sm leading-relaxed mb-6"><span className="font-semibold">You leave with: </span>{o.outcome}</p>
+                <ul className="text-sm text-stone space-y-2 mb-8 flex-1">
+                  {o.includes.map((x) => <li key={x} className="pl-4 relative before:content-['—'] before:absolute before:left-0 before:text-rule">{x}</li>)}
+                </ul>
+                <div className="pt-5 border-t border-rule">
+                  <div className="text-sm font-semibold mb-3">{o.fromPrice || 'Fixed fee, scoped after a briefing'}</div>
+                  <a href="#briefing" className="text-sm underline underline-offset-4 hover:text-oxblood">Enquire →</a>
+                </div>
+              </article>
             ))}
           </div>
         </section>
 
-        <section id="about" className="mb-20">
-          <Num n="01" label="About" />
-          <div className="glass rounded-[2rem] p-8 md:p-12">
-            <div className="rounded-2xl overflow-hidden mb-10 aspect-[16/9]">
-              <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200" alt="Code focus" className="w-full h-full object-cover opacity-70 grayscale hover:grayscale-0 transition-all duration-700" />
-            </div>
-            <div className="space-y-6 text-neutral-400 leading-relaxed">
-              <p>My work sits between strategy and execution: turning ambitious transformation ideas into systems, governance, delivery plans, and outcomes that survive real enterprise pressure.</p>
-              <p>I am especially interested in how AI moves from impressive demos into operating models: copilots, agents, knowledge systems, automation, governance, adoption, and human leadership.</p>
-            </div>
-            <div className="mt-10 -mx-2"><TechCarousel /></div>
-          </div>
-        </section>
-
-        <section id="writing" className="mb-20">
-          <Num n="02" label="Writing on Substack" />
-          <div className="glass rounded-[2rem] p-8 md:p-12 mb-6">
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight leading-[1.1] mb-4">Essays on the agentic shift.</h2>
-            <p className="text-neutral-400 leading-relaxed mb-10">Long-form analysis lives on Substack; the weekly build log lives below in AI Chronicles. Same thesis, two tempos.</p>
-            <div className="divide-y divide-neutral-800/80">
-              {ESSAYS.map((essay) => (
-                <a key={essay.url} href={essay.url} target="_blank" rel="noopener noreferrer" className="block py-8 first:pt-0 last:pb-0 group">
-                  <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300/80 mb-3">{essay.readTime}</div>
-                  <h3 className="text-xl font-bold mb-2 leading-snug group-hover:text-orange-200 transition-colors">{essay.title}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-4">{essay.subtitle}</p>
-                  <span className="text-sm font-medium text-neutral-500 group-hover:text-white transition-colors underline underline-offset-8">Read on Substack →</span>
-                </a>
+        {/* 4. Case files */}
+        <section id="cases" className="bg-paper border-y border-rule">
+          <div className="max-w-5xl mx-auto px-4 md:px-6 py-24">
+            <Label n="02">Case files</Label>
+            <h2 className="font-display text-4xl md:text-5xl leading-tight max-w-3xl mb-4">Selected work.</h2>
+            <p className="text-stone max-w-2xl mb-14">Clients are anonymised. Detailed references are shared under NDA once we've spoken.</p>
+            <div className="space-y-px bg-rule border border-rule">
+              {CASE_FILES.map((c) => (
+                <article key={c.no} className="bg-ivory p-7 md:p-10 grid md:grid-cols-[180px_1fr] gap-6 md:gap-10">
+                  <div>
+                    <div className="mono text-xs text-oxblood mb-2">File {c.no}</div>
+                    <div className="font-display text-xl mb-1">{c.sector}</div>
+                    <div className="text-sm text-stone mb-3">{c.client}</div>
+                    <span className="inline-block mono text-[10px] uppercase tracking-[0.18em] border border-rule px-2 py-1">{c.stage}</span>
+                  </div>
+                  <dl className="grid sm:grid-cols-3 gap-6 text-sm leading-relaxed">
+                    <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Problem</dt><dd>{c.problem}</dd></div>
+                    <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Approach</dt><dd>{c.approach}</dd></div>
+                    <div><dt className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">Result</dt><dd>{c.result}</dd></div>
+                  </dl>
+                </article>
               ))}
             </div>
           </div>
-          <div className="glass rounded-[2rem] p-8 md:p-10 text-center">
-            <h3 className="text-2xl font-bold mb-2">Get the next essay in your inbox.</h3>
-            <p className="text-neutral-400 text-sm leading-relaxed mb-6 max-w-md mx-auto">Agentic AI and the enterprise, written by someone who builds and sells these systems for a living. No noise, unsubscribe anytime.</p>
-            <div className="flex justify-center">
-              <iframe src="https://ankitsamriwal.substack.com/embed" width="480" height="150" style={{ maxWidth: '100%', border: 'none', background: 'transparent' }} frameBorder="0" scrolling="no" title="Subscribe"></iframe>
-            </div>
-            <div className="mt-4">
-              <a href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-neutral-500 hover:text-white transition-colors underline underline-offset-8">Browse all essays on Substack →</a>
+        </section>
+
+        {/* 5. Diagnostic */}
+        <section id="diagnostic" className="max-w-3xl mx-auto px-4 md:px-6 py-24">
+          <Label n="03">Readiness diagnostic</Label>
+          <h2 className="font-display text-4xl md:text-5xl leading-tight mb-4">Where does your organisation actually stand?</h2>
+          <p className="text-stone mb-12">Six questions, about three minutes. You get a score, a plain-English readout and a suggested starting point.</p>
+          <Diagnostic onDiscuss={discuss} />
+        </section>
+
+        {/* 6. Writing */}
+        <section id="writing" className="border-t border-rule">
+          <div className="max-w-5xl mx-auto px-4 md:px-6 py-24">
+            <Label n="04">Writing</Label>
+            <div className="grid md:grid-cols-[1fr_1.4fr] gap-12">
+              <div>
+                <h2 className="font-display text-4xl md:text-5xl leading-tight mb-5">Thinking in public.</h2>
+                <p className="text-stone leading-relaxed mb-6">Essays on the agentic shift, and a weekly build log that has run for more than 80 issues. It's the best way to see how I think before we talk.</p>
+                <a href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer" className="text-sm underline underline-offset-4 hover:text-oxblood">All essays on Substack →</a>
+              </div>
+              <div className="divide-y divide-rule border-y border-rule">
+                {ESSAYS.map((e) => (
+                  <a key={e.url} href={e.url} target="_blank" rel="noopener noreferrer" className="block py-7 group">
+                    <div className="mono text-[11px] uppercase tracking-[0.18em] text-stone mb-2">{e.readTime}</div>
+                    <h3 className="font-display text-2xl leading-snug mb-2 group-hover:text-oxblood transition-colors">{e.title}</h3>
+                    <p className="text-sm text-stone leading-relaxed">{e.subtitle}</p>
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        <section className="mb-20">
-          <div className="glass rounded-[2rem] p-4 md:p-8">
+        {/* 7. Archive band (existing interactive sections) */}
+        <section id="archive" className="bg-ink text-neutral-50">
+          <div className="max-w-3xl mx-auto px-4 md:px-6 pt-24 pb-8">
+            <Label n="05" dark>The archive</Label>
+            <h2 className="font-display text-4xl md:text-5xl leading-tight mb-4">The working notebook.</h2>
+            <p className="text-neutral-400 mb-6">The weekly Chronicles, a map of the agentic market, and a chat grounded only in what I've published.</p>
+          </div>
+          <div className="max-w-3xl mx-auto px-4 md:px-6 pb-12">
             <AiChronicles />
+            <AgenticLandscape />
+            <ContentChat />
+            <div className="border-t border-white/10 pt-10">
+              <div className="mono text-[11px] uppercase tracking-[0.25em] text-neutral-400 mb-6">From the lab</div>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {LAB.map((l) => (
+                  <a key={l.name} href={l.url} target="_blank" rel="noopener noreferrer" className="block border border-white/10 p-6 hover:border-brass transition-colors">
+                    <h3 className="font-display text-2xl mb-2">{l.name}</h3>
+                    <p className="text-sm text-neutral-400 leading-relaxed">{l.line}</p>
+                  </a>
+                ))}
+              </div>
+              <a href="https://github.com/ankitsamriwal" target="_blank" rel="noopener noreferrer" className="inline-block mt-6 text-sm text-neutral-400 underline underline-offset-4 hover:text-white">More experiments on GitHub →</a>
+            </div>
           </div>
         </section>
 
-        <AgenticLandscape />
-
-        <section id="built-with-agents" className="mb-20">
-          <Num n="04" label="Built with Agents" />
-          <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-2xl mb-10 -mt-4">Working prototypes built end-to-end with AI agents doing the heavy lifting - from spec to deployed code. Learning exercises, shipped anyway.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {PROTOTYPES.map((proto) => (
-              <article key={proto.name} className="glass rounded-[2rem] flex flex-col overflow-hidden transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05]">
-                <a href={proto.url} target="_blank" rel="noopener noreferrer" className="block aspect-[16/10] overflow-hidden border-b border-white/10 bg-neutral-900">
-                  <img src={proto.image} alt={`${proto.name} app screenshot`} loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-500 hover:scale-[1.02]" />
-                </a>
-                <div className="p-6 md:p-8 flex flex-col flex-1">
-                  <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
-                    <span className="mono text-[10px] uppercase tracking-[0.25em] text-emerald-300/80">{proto.status}</span>
-                    <span className="mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{proto.tagline}</span>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">{proto.name}</h3>
-                  <p className="text-neutral-400 text-sm leading-relaxed mb-6 flex-1">{proto.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {proto.stack.map((tech) => (
-                      <span key={tech} className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-medium text-neutral-300">{tech}</span>
-                    ))}
-                  </div>
-                  <div className="flex gap-4">
-                    <a href={proto.url} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-white hover:text-orange-200 transition-colors underline underline-offset-8">
-                      {proto.repoUrl && proto.url === proto.repoUrl ? 'View on GitHub →' : 'Open the live app →'}
-                    </a>
-                    {proto.repoUrl && proto.url !== proto.repoUrl && (
-                      <a href={proto.repoUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-neutral-500 hover:text-white transition-colors underline underline-offset-8">Source →</a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            ))}
+        {/* 8. Briefing */}
+        <section id="briefing" className="max-w-5xl mx-auto px-4 md:px-6 py-24">
+          <Label n="06">Book a briefing</Label>
+          <div className="grid md:grid-cols-[1fr_1.5fr] gap-12">
+            <div>
+              <h2 className="font-display text-4xl md:text-5xl leading-tight mb-5">A 30-minute briefing, no pitch.</h2>
+              <p className="text-stone leading-relaxed mb-8">Tell me what you're trying to solve. If I'm not the right person, I'll say so and point you to someone who is.</p>
+              <div className="text-xs text-stone mono uppercase tracking-[0.15em] leading-loose">
+                {CERTS.map((c) => <div key={c}>{c}</div>)}
+              </div>
+            </div>
+            <Briefing diagnostic={diagnostic} />
           </div>
         </section>
-
-
-
-        <section id="credentials" className="mb-20">
-          <Num n="05" label="Credentials" />
-          <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-2xl mb-10 -mt-4">Microsoft Project Ready assessments, rated PROFICIENT across agentic AI, organizational intelligence, and data agents.</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {CREDENTIALS.map((cred, i) => (
-              <article key={cred.title} className={`glass rounded-[2rem] p-6 md:p-8 flex flex-col relative overflow-hidden transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05] ${i === CREDENTIALS.length - 1 && CREDENTIALS.length % 2 === 1 ? 'md:col-span-2' : ''}`}>
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300 opacity-60"></div>
-                <div className="flex items-center gap-3 mb-6">
-                  <span className="grid grid-cols-2 gap-[2px] w-4 h-4 shrink-0" aria-hidden="true">
-                    <span className="bg-[#F25022]"></span>
-                    <span className="bg-[#7FBA00]"></span>
-                    <span className="bg-[#00A4EF]"></span>
-                    <span className="bg-[#FFB900]"></span>
-                  </span>
-                  <span className="text-sm font-semibold tracking-tight">Microsoft</span>
-                  {cred.year && <span className="ml-auto mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{cred.year}</span>}
-                </div>
-                <h3 className="text-lg font-bold leading-snug mb-6 flex-1">{cred.title}</h3>
-                <div className="pt-5 border-t border-neutral-800/80">
-                  <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300/80 mb-1">Project Ready</div>
-                  <div className="text-2xl font-extrabold tracking-tight">PROFICIENT</div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="socials" className="mb-20">
-          <Num n="06" label="Connect" />
-          <div className="glass rounded-[2rem] p-4 md:p-6 divide-y divide-neutral-800/80">
-            {SOCIAL_LINKS.map((link) => (
-              <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-4 py-5 group hover:bg-white/[0.02] rounded-xl transition-all">
-                <svg className="w-5 h-5 text-neutral-400 group-hover:text-white transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d={link.icon} /></svg>
-                <span className="font-medium">{link.platform}</span>
-                <span className="ml-auto text-neutral-600 group-hover:text-white group-hover:translate-x-1 transition-all">→</span>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <ContentChat />
-
-        <section id="contact">
-          <Num n="08" label="Get in touch" />
-          <div className="glass rounded-[2rem] p-10 md:p-14 text-center relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300 opacity-60"></div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Let's build something great.</h2>
-            <p className="text-neutral-400 mb-8 max-w-md mx-auto">I'm open to opportunities, collaborations, or conversations about enterprise AI, digital transformation, and the future of work.</p>
-            <a href="mailto:ankitsamriwal@gmail.com" className="inline-block px-10 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-all">Send an Email</a>
-          </div>
-        </section>
-
-        <section className="mt-20 glass rounded-[2rem] p-7 md:p-10 text-center border border-orange-300/20">
-          <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300 mb-3">Stay in the loop</div>
-          <h2 className="text-2xl md:text-3xl font-extrabold mb-2">The next essay, in your inbox.</h2>
-          <p className="text-sm text-neutral-400 mb-5">Subscribe free on Substack. New essays are emailed automatically.</p>
-          <div className="flex justify-center"><iframe src="https://ankitsamriwal.substack.com/embed" width="480" height="150" style={{ maxWidth: '100%', border: 'none', background: 'transparent' }} frameBorder="0" scrolling="no" title="Subscribe at the bottom of the site"></iframe></div>
-        </section>
-
-        <footer className="mt-20 pt-10 border-t border-neutral-900 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
-          <p>© {new Date().getFullYear()} Ankit Samriwal. Built with React.</p>
-          <div className="flex flex-wrap justify-center gap-6">
-            <a href="#writing" className="hover:text-white transition-colors">Writing</a>
-            <a href="https://x.com/ankitsamriwal" className="hover:text-white transition-colors">Twitter</a>
-            <a href="https://www.linkedin.com/in/ankitsamriwal" className="hover:text-white transition-colors">LinkedIn</a>
-            <a href="https://github.com/ankitsamriwal" className="hover:text-white transition-colors">GitHub</a>
-            <a href="https://medium.com/@ankitsamriwal" className="hover:text-white transition-colors">Medium</a>
-            <a href="https://huggingface.co/Ankit1106" className="hover:text-white transition-colors">Hugging Face</a>
-          </div>
-        </footer>
       </main>
+
+      <footer className="border-t border-rule">
+        <div className="max-w-5xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between text-sm text-stone">
+          <p>© {new Date().getFullYear()} Ankit Samriwal · Dubai</p>
+          <div className="flex flex-wrap gap-5">
+            {SOCIAL_LINKS.map((s) => <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer" className="hover:text-ink">{s.platform}</a>)}
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

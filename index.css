@@ -4,8 +4,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #050505;
-  color: #fafafa;
+  background-color: #F6F2EA;
+  color: #15130F;
 }
 .mono { font-family: 'JetBrains Mono', monospace; }
 .glass {
@@ -40,3 +40,5 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; font-weight: 400; letter-spacing: -0.01em; }
