@@ -14,6 +14,14 @@ const Num: React.FC<{ n: string; label: string }> = ({ n, label }) => (
   </div>
 );
 
+const CREDENTIALS: { title: string; year?: string }[] = [
+  { title: 'Implement Agent 365 to observe, govern, and secure AI Apps, Copilot & Agents' },
+  { title: 'Activate Organizational Intelligence with Microsoft IQ' },
+  { title: 'Implement Agentic AI', year: '2026' },
+  { title: 'Build Frontier Firm Work IQ', year: '2026' },
+  { title: 'Microsoft Fabric: Fabric IQ + Data Agents' },
+];
+
 const App: React.FC = () => {
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,6 +35,7 @@ const App: React.FC = () => {
     { href: '#agentic-landscape', label: 'Landscape' },
     { href: '#built-with-agents', label: 'Built' },
     { href: '#dashboards', label: 'Dashboards' },
+    { href: '#credentials', label: 'Credentials' },
     { href: '#socials', label: 'Socials' },
     { href: '#contact', label: 'Contact' },
   ];
@@ -182,8 +191,35 @@ const App: React.FC = () => {
           <Dashboards />
         </section>
 
+        <section id="credentials" className="mb-20">
+          <Num n="06" label="Credentials" />
+          <p className="text-neutral-400 text-sm md:text-base leading-relaxed max-w-2xl mb-10 -mt-4">Microsoft Project Ready assessments, rated PROFICIENT across agentic AI, organizational intelligence, and data agents.</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {CREDENTIALS.map((cred, i) => (
+              <article key={cred.title} className={`glass rounded-[2rem] p-6 md:p-8 flex flex-col relative overflow-hidden transition-all duration-300 hover:border-neutral-600 hover:bg-white/[0.05] ${i === CREDENTIALS.length - 1 && CREDENTIALS.length % 2 === 1 ? 'md:col-span-2' : ''}`}>
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300 opacity-60"></div>
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="grid grid-cols-2 gap-[2px] w-4 h-4 shrink-0" aria-hidden="true">
+                    <span className="bg-[#F25022]"></span>
+                    <span className="bg-[#7FBA00]"></span>
+                    <span className="bg-[#00A4EF]"></span>
+                    <span className="bg-[#FFB900]"></span>
+                  </span>
+                  <span className="text-sm font-semibold tracking-tight">Microsoft</span>
+                  {cred.year && <span className="ml-auto mono text-[10px] uppercase tracking-[0.25em] text-neutral-500">{cred.year}</span>}
+                </div>
+                <h3 className="text-lg font-bold leading-snug mb-6 flex-1">{cred.title}</h3>
+                <div className="pt-5 border-t border-neutral-800/80">
+                  <div className="mono text-[10px] uppercase tracking-[0.25em] text-orange-300/80 mb-1">Project Ready</div>
+                  <div className="text-2xl font-extrabold tracking-tight">PROFICIENT</div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
         <section id="socials" className="mb-20">
-          <Num n="06" label="Connect" />
+          <Num n="07" label="Connect" />
           <div className="glass rounded-[2rem] p-4 md:p-6 divide-y divide-neutral-800/80">
             {SOCIAL_LINKS.map((link) => (
               <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-4 px-4 py-5 group hover:bg-white/[0.02] rounded-xl transition-all">
@@ -198,7 +234,7 @@ const App: React.FC = () => {
         <ContentChat />
 
         <section id="contact">
-          <Num n="07" label="Get in touch" />
+          <Num n="08" label="Get in touch" />
           <div className="glass rounded-[2rem] p-10 md:p-14 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-400 to-amber-300 opacity-60"></div>
             <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight mb-4">Let's build something great.</h2>
