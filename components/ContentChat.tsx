@@ -17,7 +17,7 @@ const ContentChat: React.FC = () => {
     finally { setBusy(false); }
   };
   return <section id="ask-ankit" className="mb-20">
-    <div className="flex items-center gap-4 mb-10"><span className="mono text-xs text-orange-300/90">07</span><span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-500">Ask Ankit's writing</span><div className="h-px flex-1 bg-neutral-800" /></div>
+    <div className="flex items-center gap-4 mb-10"><span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-500">Ask Ankit's writing</span><div className="h-px flex-1 bg-neutral-800" /></div>
     <div className="glass rounded-[2rem] overflow-hidden border border-white/10">
       <div className="p-7 md:p-10 border-b border-white/10"><h2 className="text-3xl md:text-4xl font-extrabold mb-3">Chat with the body of work.</h2><p className="text-neutral-400 text-sm leading-relaxed">Grounded in the essays, the agentic landscape, and AI Chronicles. If it is not in the writing, the chat says so.</p></div>
       <div className="p-5 md:p-7 h-80 overflow-y-auto space-y-4" aria-live="polite">

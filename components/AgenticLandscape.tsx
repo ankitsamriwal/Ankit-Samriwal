@@ -30,7 +30,7 @@ const layers = [
 const AgenticLandscape: React.FC = () => (
   <section id="agentic-landscape" className="mb-20">
     <div className="flex items-center gap-4 mb-10">
-      <span className="mono text-xs text-orange-300/90">03</span>
+      
       <span className="text-xs uppercase tracking-[0.3em] font-medium text-neutral-500">Agentic AI Landscape</span>
       <div className="h-[1px] flex-1 bg-neutral-800" />
     </div>
