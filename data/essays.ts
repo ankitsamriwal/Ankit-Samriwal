@@ -4,6 +4,142 @@ export type EssayPost = { slug: string; title: string; subtitle: string; date: s
 // Newest first.
 export const ESSAY_POSTS: EssayPost[] = [
   {
+    "slug": "the-game-behind-the-models",
+    "title": "The Game Behind the Models",
+    "subtitle": "Game theory is shaping the AI race in real time, and every enterprise is already a player",
+    "date": "2026-10-20",
+    "readTime": "4 min read",
+    "intro": "The AI race looks like a technology story, but the moves by labs, cloud providers, governments and enterprises follow the logic of game theory: price wars, prisoner's dilemmas, signalling and wars of attrition. This piece maps the eight games being played and what each one means for enterprise AI strategy.",
+    "substackUrl": "https://ankitsamriwal.substack.com/p/the-game-behind-the-models",
+    "body": [
+      {
+        "k": "p",
+        "t": "We usually talk about AI as a technology story: parameters, benchmarks, context windows. Look closer and it reads more like a strategy textbook. Labs, hyperscalers, governments, enterprises and now the agents themselves are all making moves while anticipating each other's moves."
+      },
+      {
+        "k": "p",
+        "t": "That is game theory, and it's playing out live."
+      },
+      {
+        "k": "h2",
+        "t": "Game 1: The release race (a prisoner's dilemma)"
+      },
+      {
+        "k": "p",
+        "t": "Every frontier lab would arguably benefit from slower, more careful release cycles. But no single lab can afford to slow down if the others don't. Moving faster is each player's best individual move, even though everyone moving fast raises cost and risk for the whole field."
+      },
+      {
+        "k": "p",
+        "t": "That's a classic prisoner's dilemma. It's also a big reason for the release cadence that's freezing enterprise buyers (see my previous piece, [Waiting for the Last Model](https://ankitsamriwal.substack.com/p/waiting-for-the-last-model))."
+      },
+      {
+        "k": "p",
+        "t": "[e Last Model](https://ankitsamriwal.substack.com/p/waiting-for-the-last-model))."
+      },
+      {
+        "k": "h2",
+        "t": "Game 2: Open weights (commoditise your complement)"
+      },
+      {
+        "k": "p",
+        "t": "Why would a company give away a model that cost a fortune to train? Because if your business is cloud, ads, chips or devices, cheap models make your core product more valuable. Releasing open weights is a strategic move. It pushes down the price of a rival's main product. [Meta's Llama](https://www.llama.com/) is the textbook case: the model is the giveaway, the ecosystem is the product."
+      },
+      {
+        "k": "h2",
+        "t": "Game 3: Token price wars (Bertrand competition)"
+      },
+      {
+        "k": "p",
+        "t": "When products look similar to buyers, competitors cut prices toward cost. Per-token pricing has behaved this way. Stanford's [2025 AI Index](https://hai.stanford.edu/news/ai-index-2025-state-of-ai-in-10-charts) measured a 280-fold drop in the cost of GPT-3.5-level inference in roughly 18 months, and depending on the task, LLM inference prices have fallen anywhere from 9 to 900 times per year. Buyers win in the short term. Vendors respond by differentiating on things that are harder to copy: agents, tooling, enterprise trust and distribution."
+      },
+      {
+        "k": "h2",
+        "t": "Game 4: Hyperscaler hedging (mixed strategies)"
+      },
+      {
+        "k": "p",
+        "t": "Cloud providers back several model makers at once and also host competitors' models. In game-theory terms that's a mixed strategy. When you can't predict the winner, you hold a stake in many outcomes and own the platform they all run on."
+      },
+      {
+        "k": "h2",
+        "t": "Game 5: The enterprise waiting game (war of attrition)"
+      },
+      {
+        "k": "p",
+        "t": "Enterprises are playing a war of attrition: \"Whoever commits last gets the best model at the lowest price.\" The catch is that in a war of attrition, both sides pay while they wait. The waiting player gives up learning, data maturity and market position. Often the patient player loses to the player who moved first and stayed flexible."
+      },
+      {
+        "k": "h2",
+        "t": "Game 6: Nations and sovereign AI (signalling and commitment)"
+      },
+      {
+        "k": "p",
+        "t": "Sovereign AI programmes, local compute investment and controls on chips and models all work as strategic commitments. They signal intent, shift bargaining power, and change what other players can credibly do next. For the GCC especially, building local capability is partly a move to stay a player rather than only a buyer."
+      },
+      {
+        "k": "h2",
+        "t": "Game 7: Agents vs agents (mechanism design)"
+      },
+      {
+        "k": "p",
+        "t": "This is the new frontier. Procurement agents negotiating with sales agents. Scheduling agents bidding for shared resources. Trading agents reacting to each other within milliseconds."
+      },
+      {
+        "k": "p",
+        "t": "When agents interact repeatedly, game theory stops being a metaphor and becomes engineering. A few questions matter:"
+      },
+      {
+        "k": "ul",
+        "items": [
+          "**Do the rules reward honesty?** Mechanism design means building markets where telling the truth is each agent's best strategy.",
+          "**Can agents collude without being told to?** Pricing agents learning from each other can drift toward outcomes no human approved.",
+          "**Is the game repeated?** In repeated games, reputation and trust become rational strategies. Agent ecosystems need identity and memory for that to work."
+        ]
+      },
+      {
+        "k": "p",
+        "t": "Anyone deploying agents into a market is designing a game, whether they intend to or not."
+      },
+      {
+        "k": "h2",
+        "t": "Game 8: Benchmarks (Goodhart's signalling game)"
+      },
+      {
+        "k": "p",
+        "t": "Benchmarks are signals to buyers. Once a measure becomes the target, players optimise for the measure rather than the capability. A benchmark arms race tells you who is best at benchmarks. Your own evaluation set tells you who is best for you."
+      },
+      {
+        "k": "h2",
+        "t": "What this means for leaders"
+      },
+      {
+        "k": "ol",
+        "items": [
+          "**Know which game you're in.** Are you a buyer in a price war, a player in a war of attrition, or a designer of an agent market? Each one calls for a different strategy.",
+          "**Play the repeated game.** Choose partners and architectures for flexibility over many rounds, not to win one round.",
+          "**Don't be the last one waiting.** In a war of attrition, the cost of the delay is often bigger than the prize.",
+          "**Design agent incentives deliberately.** If your agents negotiate, bid or trade, the rules of engagement are now part of your architecture."
+        ]
+      },
+      {
+        "k": "p",
+        "t": "AI won't be won by the best model alone. It will be won by the players who understand the game."
+      },
+      {
+        "k": "h2",
+        "t": "Sources"
+      },
+      {
+        "k": "ul",
+        "items": [
+          "[Stanford HAI, AI Index 2025: 280-fold drop in GPT-3.5-level inference cost in ~18 months; task-dependent price falls of 9 to 900 times per year](https://hai.stanford.edu/news/ai-index-2025-state-of-ai-in-10-charts)",
+          "[Meta Llama, open-weight models](https://www.llama.com/)",
+          "Cross-link: Waiting for the Last Model"
+        ]
+      }
+    ]
+  },
+  {
     "slug": "waiting-for-the-last-model",
     "title": "Waiting for the Last Model",
     "subtitle": "Why constant AI upgrades are quietly freezing enterprise decisions, and why the stable state may never come",
