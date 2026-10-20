@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AiChronicles from './components/AiChronicles';
 import AgenticLandscape from './components/AgenticLandscape';
 import ContentChat from './components/ContentChat';
+import Essays from './components/Essays';
 import Diagnostic, { DiagnosticResult } from './components/Diagnostic';
 import Briefing from './components/Briefing';
 import { SOCIAL_LINKS, ESSAYS, SUBSTACK_URL } from './constants';
@@ -182,6 +183,7 @@ const App: React.FC = () => {
                 ))}
               </div>
             </div>
+            <Essays />
           </div>
         </section>
 
