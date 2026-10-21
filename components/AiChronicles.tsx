@@ -37,8 +37,9 @@ import { articles81 } from '../data/chronicles-81';
 import { articles82 } from '../data/chronicles-82';
 import { articles83 } from '../data/chronicles-83';
 import { articles84 } from '../data/chronicles-84';
+import { articles85 } from '../data/chronicles-85';
 
-const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70, ...articles71, ...articles72, ...articles73, ...articles74, ...articles75, ...articles76, ...articles77, ...articles78, ...articles79, ...articles80, ...articles81, ...articles82, ...articles83, ...articles84];
+const articles = [...baseArticles, ...articles21To25, ...articles26To30, ...articles31To35, ...articles36To40, ...articles41To45, ...articles46To50, ...articles51To53, ...articles54, ...articles55, ...articles56, ...articles57, ...articles58, ...articles59, ...articles60, ...articles61, ...articles62, ...articles64, ...articles65, ...articles66, ...articles67, ...articles68, ...articles69, ...articles70, ...articles71, ...articles72, ...articles73, ...articles74, ...articles75, ...articles76, ...articles77, ...articles78, ...articles79, ...articles80, ...articles81, ...articles82, ...articles83, ...articles84, ...articles85];
 
 const heroImages = [
   'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=85&w=1400',
