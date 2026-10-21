@@ -6,7 +6,7 @@ import Essays from './components/Essays';
 import Diagnostic, { DiagnosticResult } from './components/Diagnostic';
 import Briefing from './components/Briefing';
 import { SOCIAL_LINKS, ESSAYS, SUBSTACK_URL } from './constants';
-import { OFFERS, CASE_FILES, PROOF, CERTS, LAB } from './advisory';
+import { OFFERS, CASE_FILES, PROOF, CERTS, LAB, BOOKING_EMAIL } from './advisory';
 import { Chip, CertBadge, LineIcon, BrandIcon, PLATFORMS } from './components/Logos';
 
 const Label: React.FC<{ n: string; children: React.ReactNode; dark?: boolean }> = ({ n, children, dark }) => (
@@ -69,6 +69,15 @@ const App: React.FC = () => {
           <div className="flex flex-wrap gap-3">
             <a href="#briefing" className="px-7 py-4 bg-ink text-ivory font-semibold hover:bg-oxblood transition-colors">Book a briefing</a>
             <a href="#diagnostic" className="px-7 py-4 border border-ink hover:bg-ink hover:text-ivory transition-colors">Take the 3-minute diagnostic</a>
+          </div>
+          <div className="mt-6 text-sm text-stone">
+            Direct: <a href={`mailto:${BOOKING_EMAIL}`} className="underline underline-offset-4 hover:text-oxblood">{BOOKING_EMAIL}</a>
+          </div>
+          <div className="mt-10 border border-rule bg-paper p-5 md:p-6 max-w-3xl">
+            <div className="mono text-[11px] uppercase tracking-[0.18em] text-oxblood mb-2">Case file 014 · Federal defence entity, GCC</div>
+            <p className="text-sm leading-relaxed">
+              Stakeholder engagement platform built fully air-gapped: the technical case for a purpose-built stack over an on-premises packaged CRM, proven with a working demonstrator. A justified, deployable architecture with no external dependencies. <a href="#cases" className="underline underline-offset-4 hover:text-oxblood">More case files →</a>
+            </p>
           </div>
           <div className="mt-12 grid sm:grid-cols-3 gap-3 max-w-3xl">
             {CERTS.slice(0, 3).map((c) => <CertBadge key={c.name} c={c} />)}
@@ -233,7 +242,8 @@ const App: React.FC = () => {
       <footer className="border-t border-rule">
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-10 flex flex-col md:flex-row gap-6 md:items-center justify-between text-sm text-stone">
           <p>© {new Date().getFullYear()} Ankit Samriwal · Dubai</p>
-          <div className="flex flex-wrap gap-5">
+          <div className="flex flex-wrap gap-5 items-center">
+            <a href={`mailto:${BOOKING_EMAIL}`} className="hover:text-ink">{BOOKING_EMAIL}</a>
             {SOCIAL_LINKS.map((s) => (
               <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.platform} className="inline-flex items-center gap-2 hover:text-ink">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d={s.icon} /></svg>
