@@ -21,6 +21,6 @@ export const articles89: Article[] = [
       'The 2030 question is not only whether a robot takes your job, but who owns the robot doing it.',
       'The figures are one bank\u2019s projection; the ownership question holds even if the numbers shift.'
     ],
-    note: 'Source: Citi GPS, The Rise of AI Robots (December 2024) - https://ir.citi.com/gps/5UZlVCbnOSutmMx7kFzwdyrW_IXRZiu3wA78fxqqvWLAUuRNonaRIkQEwyf2fi1s73LD3PSz_pxS-eClDTxsWzlktDcuHKEj. The 1.3bn and 4bn figures are that report\u2019s projection, broadly defined, and are labelled as such in the piece.'
+    note: 'Source: Citi GPS, The Rise of AI Robots (December 2024). The 1.3bn and 4bn figures are that report\u2019s projection, broadly defined, and are labelled as such in the piece.'
   }
 ];
