@@ -14,7 +14,8 @@ export const articles89: Article[] = [
       'One bank\u2019s projection, not a census. But even directionally it reframes the labour debate. The argument today is whether a robot takes your job. A robot is capital. It does not earn a wage; its owner receives the returns after financing and operating costs.',
       'That makes my question for 2030: who owns the robot doing the work? The employer, a platform, you, or a shared fund?',
       'My call: the divide becomes less about employed versus replaced, and more about people with a stake in productive machines versus people without one. Retraining matters. Access to ownership deserves a place in the same conversation.',
-      'Source: Citi GPS, The Rise of AI Robots (December 2024).'
+      'Source: Citi GPS, The Rise of AI Robots (December 2024).',
+      'Source: https://ir.citi.com/gps/5UZlVCbnOSutmMx7kFzwdyrW_IXRZiu3wA78fxqqvWLAUuRNonaRIkQEwyf2fi1s73LD3PSz_pxS-eClDTxsWzlktDcuHKEj'
     ],
     takeaways: [
       'A robot is capital, not a worker: its returns flow to whoever owns it, after financing and operating costs.',
